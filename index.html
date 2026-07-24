@@ -73,7 +73,7 @@
             </tr>
           </thead>
           <tbody id="proposalsTableBody" class="divide-y divide-slate-100">
-            <!-- Rendered dynamically -->
+            <!-- Rendered dynamically via Firebase -->
           </tbody>
         </table>
       </div>
@@ -90,7 +90,7 @@
       <span class="text-xs text-rose-600 font-bold uppercase tracking-wider bg-rose-50 px-3 py-1 rounded-full border border-rose-100">Editing Proposal</span>
     </div>
 
-    <!-- SECTION 1: WEDDING DETAILS -->
+    <!-- SECTION 1: WEDDING & LOGISTICS DETAILS -->
     <section class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
       <div class="bg-slate-100 border-b border-slate-200 px-6 py-4 flex items-center justify-between">
         <h2 class="text-lg font-bold text-slate-800 flex items-center gap-2">
@@ -155,7 +155,7 @@
       </div>
 
       <div class="p-6 space-y-6">
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 bg-slate-50 p-4 rounded-lg border border-slate-200 section-details-grid">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 bg-slate-50 p-4 rounded-lg border border-slate-200">
           <div>
             <label class="block text-xs font-bold text-slate-500 uppercase mb-1">Dress Color & Style</label>
             <input type="text" class="w-full bg-white border border-slate-300 rounded-md px-3 py-1.5 text-sm focus:ring-2 focus:ring-rose-500 focus:outline-none">
@@ -188,15 +188,15 @@
                   <textarea rows="2" class="w-full text-xs bg-slate-50 border border-slate-200 rounded p-2 focus:ring-1 focus:ring-rose-500 focus:outline-none text-slate-600" placeholder="Design details, stems, foliage notes..."></textarea>
                 </td>
                 <td class="p-3 text-center align-top">
-                  <input type="number" min="0" value="0" class="item-qty w-16 text-center border border-slate-300 rounded-md py-1 px-2 focus:ring-2 focus:ring-rose-500 focus:outline-none" oninput="calculateTotals()">
+                  <input type="number" min="0" value="1" class="item-qty w-16 text-center border border-slate-300 rounded-md py-1 px-2 focus:ring-2 focus:ring-rose-500 focus:outline-none" oninput="calculateTotals()">
                 </td>
                 <td class="p-3 text-right align-top">
                   <div class="relative inline-block w-24">
                     <span class="absolute left-2 top-1 text-slate-400">$</span>
-                    <input type="number" step="0.01" value="0.00" class="item-price w-full pl-6 pr-2 py-1 border border-slate-300 rounded-md text-right focus:ring-2 focus:ring-rose-500 focus:outline-none" oninput="calculateTotals()">
+                    <input type="number" step="0.01" value="200.00" class="item-price w-full pl-6 pr-2 py-1 border border-slate-300 rounded-md text-right focus:ring-2 focus:ring-rose-500 focus:outline-none" oninput="calculateTotals()">
                   </div>
                 </td>
-                <td class="p-3 text-right font-bold text-slate-800 align-top pt-2">$<span class="item-total">0.00</span></td>
+                <td class="p-3 text-right font-bold text-slate-800 align-top pt-2">$<span class="item-total">200.00</span></td>
                 <td class="p-3 text-center align-top pt-2">
                   <button type="button" onclick="this.closest('tr').remove(); calculateTotals();" class="text-slate-400 hover:text-rose-500 p-1 rounded">
                     <i data-lucide="trash-2" class="w-4 h-4"></i>
@@ -224,7 +224,7 @@
       </div>
 
       <div class="p-6 space-y-6">
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 bg-slate-50 p-4 rounded-lg border border-slate-200 section-details-grid">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 bg-slate-50 p-4 rounded-lg border border-slate-200">
           <div>
             <label class="block text-xs font-bold text-slate-500 uppercase mb-1">Wardrobe Color</label>
             <input type="text" class="w-full bg-white border border-slate-300 rounded-md px-3 py-1.5 text-sm focus:ring-2 focus:ring-purple-500 focus:outline-none">
@@ -260,7 +260,7 @@
                 <td class="p-3 text-right align-top">
                   <div class="relative inline-block w-24">
                     <span class="absolute left-2 top-1 text-slate-400">$</span>
-                    <input type="number" step="0.01" value="0.00" class="item-price w-full pl-6 pr-2 py-1 border border-slate-300 rounded-md text-right focus:ring-2 focus:ring-purple-500 focus:outline-none" oninput="calculateTotals()">
+                    <input type="number" step="0.01" value="95.00" class="item-price w-full pl-6 pr-2 py-1 border border-slate-300 rounded-md text-right focus:ring-2 focus:ring-purple-500 focus:outline-none" oninput="calculateTotals()">
                   </div>
                 </td>
                 <td class="p-3 text-right font-bold text-slate-800 align-top pt-2">$<span class="item-total">0.00</span></td>
@@ -305,8 +305,8 @@
             <tbody id="boutsTableBody" class="divide-y divide-slate-100">
               <tr>
                 <td class="p-3">
-                  <input type="text" value="Bride Corsage" class="w-full font-semibold border-b border-transparent hover:border-slate-300 focus:border-amber-500 focus:outline-none mb-1">
-                  <textarea rows="1" class="w-full text-xs bg-slate-50 border border-slate-200 rounded p-1.5 focus:ring-1 focus:ring-amber-500 focus:outline-none text-slate-600" placeholder="Notes..."></textarea>
+                  <input type="text" value="Wrist Corsage" class="w-full font-semibold border-b border-transparent hover:border-slate-300 focus:border-amber-500 focus:outline-none mb-1">
+                  <textarea rows="1" class="w-full text-xs bg-slate-50 border border-slate-200 rounded p-1.5 focus:ring-1 focus:ring-amber-500 focus:outline-none text-slate-600" placeholder="Ribbon / style preferences..."></textarea>
                 </td>
                 <td class="p-3 text-center align-top"><input type="number" min="0" value="0" class="item-qty w-16 text-center border border-slate-300 rounded-md py-1 px-2 focus:ring-2 focus:ring-amber-500 focus:outline-none" oninput="calculateTotals()"></td>
                 <td class="p-3 text-right align-top">
@@ -318,7 +318,19 @@
               <tr>
                 <td class="p-3">
                   <input type="text" value="Groom Boutonniere" class="w-full font-semibold border-b border-transparent hover:border-slate-300 focus:border-amber-500 focus:outline-none mb-1">
-                  <textarea rows="1" class="w-full text-xs bg-slate-50 border border-slate-200 rounded p-1.5 focus:ring-1 focus:ring-amber-500 focus:outline-none text-slate-600" placeholder="Notes..."></textarea>
+                  <textarea rows="1" class="w-full text-xs bg-slate-50 border border-slate-200 rounded p-1.5 focus:ring-1 focus:ring-amber-500 focus:outline-none text-slate-600" placeholder="Special stem details..."></textarea>
+                </td>
+                <td class="p-3 text-center align-top"><input type="number" min="0" value="0" class="item-qty w-16 text-center border border-slate-300 rounded-md py-1 px-2 focus:ring-2 focus:ring-amber-500 focus:outline-none" oninput="calculateTotals()"></td>
+                <td class="p-3 text-right align-top">
+                  <div class="relative inline-block w-24"><span class="absolute left-2 top-1 text-slate-400">$</span><input type="number" step="0.01" value="19.95" class="item-price w-full pl-6 pr-2 py-1 border border-slate-300 rounded-md text-right focus:ring-2 focus:ring-amber-500 focus:outline-none" oninput="calculateTotals()"></div>
+                </td>
+                <td class="p-3 text-right font-bold text-slate-800 align-top pt-2">$<span class="item-total">0.00</span></td>
+                <td class="p-3 text-center align-top pt-2"><button type="button" onclick="this.closest('tr').remove(); calculateTotals();" class="text-slate-400 hover:text-rose-500 p-1 rounded"><i data-lucide="trash-2" class="w-4 h-4"></i></button></td>
+              </tr>
+              <tr>
+                <td class="p-3">
+                  <input type="text" value="Groomsmen / Father Boutonnieres" class="w-full font-semibold border-b border-transparent hover:border-slate-300 focus:border-amber-500 focus:outline-none mb-1">
+                  <textarea rows="1" class="w-full text-xs bg-slate-50 border border-slate-200 rounded p-1.5 focus:ring-1 focus:ring-amber-500 focus:outline-none text-slate-600" placeholder="Match Groomsmen..."></textarea>
                 </td>
                 <td class="p-3 text-center align-top"><input type="number" min="0" value="0" class="item-qty w-16 text-center border border-slate-300 rounded-md py-1 px-2 focus:ring-2 focus:ring-amber-500 focus:outline-none" oninput="calculateTotals()"></td>
                 <td class="p-3 text-right align-top">
@@ -330,7 +342,63 @@
             </tbody>
           </table>
         </div>
-        <button type="button" onclick="addStandardRow('boutsTableBody', 'amber')" class="mt-2 text-xs font-semibold text-amber-700 hover:text-amber-900 flex items-center gap-1">
+        <button type="button" onclick="addStandardRow('boutsTableBody', 'amber', 'Special Boutonniere', '19.95')" class="mt-2 text-xs font-semibold text-amber-700 hover:text-amber-900 flex items-center gap-1">
+          <i data-lucide="plus" class="w-4 h-4"></i> Add Line Item
+        </button>
+      </div>
+    </section>
+
+    <!-- SECTION 5: CEREMONY -->
+    <section class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+      <div class="bg-emerald-50/70 border-b border-emerald-100 px-6 py-4 flex items-center justify-between">
+        <h2 class="text-lg font-bold text-emerald-900 flex items-center gap-2">
+          <i data-lucide="church" class="w-5 h-5 text-emerald-600"></i> Ceremony
+        </h2>
+        <span class="text-sm font-semibold text-emerald-800 bg-emerald-100/80 px-3 py-1 rounded-full">
+          Subtotal: $<span class="section-subtotal">0.00</span>
+        </span>
+      </div>
+
+      <div class="p-6 space-y-6">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 bg-slate-50 p-4 rounded-lg border border-slate-200">
+          <div>
+            <label class="block text-xs font-bold text-slate-500 uppercase mb-1">Arbor / Arch Style & Frame Type</label>
+            <input type="text" class="w-full bg-white border border-slate-300 rounded-md px-3 py-1.5 text-sm focus:ring-2 focus:ring-emerald-500 focus:outline-none">
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-slate-500 uppercase mb-1">Ceremony Setup & Move Notes</label>
+            <input type="text" class="w-full bg-white border border-slate-300 rounded-md px-3 py-1.5 text-sm focus:ring-2 focus:ring-emerald-500 focus:outline-none">
+          </div>
+        </div>
+
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-sm">
+            <thead class="bg-slate-100 text-slate-600 font-semibold uppercase text-xs">
+              <tr>
+                <th class="p-3 rounded-l-md">Ceremony Item Description</th>
+                <th class="p-3 w-28 text-center">QTY</th>
+                <th class="p-3 w-32 text-right">$ Each</th>
+                <th class="p-3 w-32 text-right">$ Total</th>
+                <th class="p-3 w-12 text-center rounded-r-md"></th>
+              </tr>
+            </thead>
+            <tbody id="ceremonyTableBody" class="divide-y divide-slate-100">
+              <tr>
+                <td class="p-3">
+                  <input type="text" value="Arbor / Arch Florals" class="w-full font-semibold border-b border-transparent hover:border-slate-300 focus:border-emerald-500 focus:outline-none mb-1">
+                  <textarea rows="1" class="w-full text-xs bg-slate-50 border border-slate-200 rounded p-1.5 focus:ring-1 focus:ring-emerald-500 focus:outline-none text-slate-600" placeholder="Corner piece, spray, greenery garland..."></textarea>
+                </td>
+                <td class="p-3 text-center align-top"><input type="number" min="0" value="0" class="item-qty w-16 text-center border border-slate-300 rounded-md py-1 px-2 focus:ring-2 focus:ring-emerald-500 focus:outline-none" oninput="calculateTotals()"></td>
+                <td class="p-3 text-right align-top">
+                  <div class="relative inline-block w-24"><span class="absolute left-2 top-1 text-slate-400">$</span><input type="number" step="0.01" value="0.00" class="item-price w-full pl-6 pr-2 py-1 border border-slate-300 rounded-md text-right focus:ring-2 focus:ring-emerald-500 focus:outline-none" oninput="calculateTotals()"></div>
+                </td>
+                <td class="p-3 text-right font-bold text-slate-800 align-top pt-2">$<span class="item-total">0.00</span></td>
+                <td class="p-3 text-center align-top pt-2"><button type="button" onclick="this.closest('tr').remove(); calculateTotals();" class="text-slate-400 hover:text-rose-500 p-1 rounded"><i data-lucide="trash-2" class="w-4 h-4"></i></button></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <button type="button" onclick="addStandardRow('ceremonyTableBody', 'emerald')" class="mt-2 text-xs font-semibold text-emerald-700 hover:text-emerald-900 flex items-center gap-1">
           <i data-lucide="plus" class="w-4 h-4"></i> Add Line Item
         </button>
       </div>
@@ -338,7 +406,7 @@
 
   </div>
 
-  <!-- FIXED BOTTOM PROPOSAL SUMMARY & ACTION BAR (Only visible in Editor Mode) -->
+  <!-- FIXED BOTTOM PROPOSAL SUMMARY & ACTION BAR -->
   <div id="editorActionBar" class="hidden fixed bottom-0 left-0 right-0 bg-white border-t border-slate-200 shadow-lg z-50">
     <div class="max-w-5xl mx-auto px-4 py-3 flex flex-wrap items-center justify-between gap-4">
       
@@ -388,38 +456,59 @@
     </div>
   </div>
 
-  <script>
-    lucide.createIcons();
+  <!-- FIREBASE & CORE APP SCRIPTS -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+    import { 
+      getFirestore, collection, doc, setDoc, deleteDoc, onSnapshot 
+    } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+    // FIREBASE CONFIG KEYS
+    const firebaseConfig = {
+      apiKey: "AIzaSyCFSufqDxc_iUpjXodETuWJxscpqw3oD6k",
+      authDomain: "vogts-wedding-proposal-storage.firebaseapp.com",
+      projectId: "vogts-wedding-proposal-storage",
+      storageBucket: "vogts-wedding-proposal-storage.firebasestorage.app",
+      messagingSenderId: "1077971005268",
+      appId: "1:1077971005268:web:f38dac35d7b489d6d422c1",
+      measurementId: "G-9TBSHD526R"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+    const proposalsCol = collection(db, "proposals");
+
     let currentProposalId = null;
 
-    // LOCAL STORAGE MANAGEMENT
-    function getStoredProposals() {
-      return JSON.parse(localStorage.getItem("vogts_proposals") || "[]");
-    }
+    // REAL-TIME CLOUD DATABASE SYNC
+    onSnapshot(proposalsCol, (snapshot) => {
+      const proposals = [];
+      snapshot.forEach((doc) => {
+        proposals.push({ id: doc.id, ...doc.data() });
+      });
+      window.allProposals = proposals;
+      renderDashboardTable();
+    });
 
-    function saveStoredProposals(proposals) {
-      localStorage.setItem("vogts_proposals", JSON.stringify(proposals));
-    }
-
-    // VIEW SWITCHING
-    function showDashboard() {
+    // NAVIGATION
+    window.showDashboard = function() {
       document.getElementById('dashboardView').classList.remove('hidden');
       document.getElementById('editorView').classList.add('hidden');
       document.getElementById('editorActionBar').classList.add('hidden');
       renderDashboardTable();
-    }
+    };
 
-    function createNewProposal() {
-      currentProposalId = Date.now().toString(); // unique ID
+    window.createNewProposal = function() {
+      currentProposalId = Date.now().toString();
       clearEditorFields();
       document.getElementById('dashboardView').classList.add('hidden');
       document.getElementById('editorView').classList.remove('hidden');
       document.getElementById('editorActionBar').classList.remove('hidden');
       calculateTotals();
-    }
+    };
 
-    function editProposal(id) {
-      const proposals = getStoredProposals();
+    window.editProposal = function(id) {
+      const proposals = window.allProposals || [];
       const p = proposals.find(item => item.id === id);
       if (!p) return;
 
@@ -438,27 +527,29 @@
       document.getElementById('editorView').classList.remove('hidden');
       document.getElementById('editorActionBar').classList.remove('hidden');
       calculateTotals();
-    }
+    };
 
-    function deleteProposal(id) {
-      if (confirm("Are you sure you want to delete this proposal draft?")) {
-        let proposals = getStoredProposals();
-        proposals = proposals.filter(p => p.id !== id);
-        saveStoredProposals(proposals);
-        renderDashboardTable();
+    window.deleteProposal = async function(id) {
+      if (confirm("Are you sure you want to delete this proposal across all computers?")) {
+        try {
+          await deleteDoc(doc(db, "proposals", id));
+        } catch (err) {
+          alert("Error deleting proposal: " + err.message);
+        }
       }
-    }
+    };
 
     function clearEditorFields() {
       document.querySelectorAll('#editorView input, #editorView textarea').forEach(el => el.value = '');
     }
 
-    function renderDashboardTable() {
-      const proposals = getStoredProposals();
-      const search = document.getElementById('searchInput').value.toLowerCase();
+    window.renderDashboardTable = function() {
+      const proposals = window.allProposals || [];
+      const search = (document.getElementById('searchInput')?.value || '').toLowerCase();
       const tbody = document.getElementById('proposalsTableBody');
-      tbody.innerHTML = '';
+      if (!tbody) return;
 
+      tbody.innerHTML = '';
       document.getElementById('totalProposalsCount').textContent = proposals.length;
 
       const filtered = proposals.filter(p => 
@@ -496,12 +587,12 @@
         tbody.appendChild(tr);
       });
       lucide.createIcons();
-    }
+    };
 
-    function saveProposalToStorage() {
-      const proposals = getStoredProposals();
+    window.saveProposalToStorage = async function() {
+      const id = currentProposalId || Date.now().toString();
       const payload = {
-        id: currentProposalId || Date.now().toString(),
+        id: id,
         brideName: document.getElementById('brideName').value,
         groomName: document.getElementById('groomName').value,
         eventDate: document.getElementById('eventDate').value,
@@ -511,22 +602,20 @@
         ceremonyVenue: document.getElementById('ceremonyVenue').value,
         receptionVenue: document.getElementById('receptionVenue').value,
         themeNotes: document.getElementById('themeNotes').value,
-        grandTotal: document.getElementById('grandTotal').textContent
+        grandTotal: document.getElementById('grandTotal').textContent,
+        updatedAt: new Date().toISOString()
       };
 
-      const existingIndex = proposals.findIndex(p => p.id === payload.id);
-      if (existingIndex >= 0) {
-        proposals[existingIndex] = payload;
-      } else {
-        proposals.unshift(payload);
+      try {
+        await setDoc(doc(db, "proposals", id), payload);
+        alert("Proposal saved to cloud! It is now accessible across all devices.");
+        showDashboard();
+      } catch (err) {
+        alert("Error saving proposal to cloud: " + err.message);
       }
+    };
 
-      saveStoredProposals(proposals);
-      alert("Proposal saved to dashboard successfully!");
-      showDashboard();
-    }
-
-    function calculateTotals() {
+    window.calculateTotals = function() {
       let grandTotal = 0;
       document.querySelectorAll('#editorView section').forEach(section => {
         let sectionTotal = 0;
@@ -543,9 +632,9 @@
         grandTotal += sectionTotal;
       });
       document.getElementById('grandTotal').textContent = grandTotal.toFixed(2);
-    }
+    };
 
-    function addStandardRow(tbodyId, themeColor = 'rose', name = '', price = '0.00') {
+    window.addStandardRow = function(tbodyId, themeColor = 'rose', name = '', price = '0.00') {
       const tbody = document.getElementById(tbodyId);
       const tr = document.createElement('tr');
       tr.innerHTML = `
@@ -563,9 +652,9 @@
       tbody.appendChild(tr);
       lucide.createIcons();
       calculateTotals();
-    }
+    };
 
-    function openProposalPreview() {
+    window.openProposalPreview = function() {
       const brideName = document.getElementById('brideName').value || "N/A";
       const eventDate = document.getElementById('eventDate').value || "N/A";
       const grandTotal = document.getElementById('grandTotal').textContent;
@@ -577,13 +666,14 @@
         </div>
       `;
       document.getElementById('previewModal').classList.remove('hidden');
-    }
+    };
 
-    function closeProposalPreview() {
+    window.closeProposalPreview = function() {
       document.getElementById('previewModal').classList.add('hidden');
-    }
+    };
 
-    // Initialize Dashboard on Load
+    // Initialize UI
+    lucide.createIcons();
     showDashboard();
   </script>
 </body>
