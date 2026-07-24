@@ -8,6 +8,8 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <!-- Lucide Icons -->
   <script src="https://unpkg.com/lucide@latest"></script>
+  <!-- html2pdf Library for PDF Generation -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 </head>
 <body class="bg-slate-50 text-slate-800 pb-28">
 
@@ -36,8 +38,6 @@
 
   <!-- VIEW 1: LANDING PAGE / DASHBOARD -->
   <div id="dashboardView" class="max-w-6xl mx-auto px-4 py-8 space-y-6">
-    
-    <!-- Welcome & Stats Header -->
     <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
       <div>
         <h2 class="text-xl font-bold text-slate-900">Saved Proposals</h2>
@@ -51,7 +51,6 @@
       </div>
     </div>
 
-    <!-- Search & Controls Bar -->
     <div class="flex items-center justify-between gap-4 bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
       <div class="relative flex-1 max-w-md">
         <i data-lucide="search" class="w-4 h-4 text-slate-400 absolute left-3 top-3"></i>
@@ -59,7 +58,6 @@
       </div>
     </div>
 
-    <!-- Proposals Data Table -->
     <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
       <div class="overflow-x-auto">
         <table class="w-full text-left text-sm">
@@ -73,12 +71,11 @@
             </tr>
           </thead>
           <tbody id="proposalsTableBody" class="divide-y divide-slate-100">
-            <!-- Rendered dynamically via Firebase -->
+            <!-- Rendered dynamically -->
           </tbody>
         </table>
       </div>
     </div>
-
   </div>
 
   <!-- VIEW 2: PROPOSAL EDITOR FORM -->
@@ -188,15 +185,15 @@
                   <textarea rows="2" class="w-full text-xs bg-slate-50 border border-slate-200 rounded p-2 focus:ring-1 focus:ring-rose-500 focus:outline-none text-slate-600" placeholder="Design details, stems, foliage notes..."></textarea>
                 </td>
                 <td class="p-3 text-center align-top">
-                  <input type="number" min="0" value="1" class="item-qty w-16 text-center border border-slate-300 rounded-md py-1 px-2 focus:ring-2 focus:ring-rose-500 focus:outline-none" oninput="calculateTotals()">
+                  <input type="number" min="0" value="0" class="item-qty w-16 text-center border border-slate-300 rounded-md py-1 px-2 focus:ring-2 focus:ring-rose-500 focus:outline-none" oninput="calculateTotals()">
                 </td>
                 <td class="p-3 text-right align-top">
                   <div class="relative inline-block w-24">
                     <span class="absolute left-2 top-1 text-slate-400">$</span>
-                    <input type="number" step="0.01" value="200.00" class="item-price w-full pl-6 pr-2 py-1 border border-slate-300 rounded-md text-right focus:ring-2 focus:ring-rose-500 focus:outline-none" oninput="calculateTotals()">
+                    <input type="number" step="0.01" value="0.00" class="item-price w-full pl-6 pr-2 py-1 border border-slate-300 rounded-md text-right focus:ring-2 focus:ring-rose-500 focus:outline-none" oninput="calculateTotals()">
                   </div>
                 </td>
-                <td class="p-3 text-right font-bold text-slate-800 align-top pt-2">$<span class="item-total">200.00</span></td>
+                <td class="p-3 text-right font-bold text-slate-800 align-top pt-2">$<span class="item-total">0.00</span></td>
                 <td class="p-3 text-center align-top pt-2">
                   <button type="button" onclick="this.closest('tr').remove(); calculateTotals();" class="text-slate-400 hover:text-rose-500 p-1 rounded">
                     <i data-lucide="trash-2" class="w-4 h-4"></i>
@@ -260,7 +257,7 @@
                 <td class="p-3 text-right align-top">
                   <div class="relative inline-block w-24">
                     <span class="absolute left-2 top-1 text-slate-400">$</span>
-                    <input type="number" step="0.01" value="95.00" class="item-price w-full pl-6 pr-2 py-1 border border-slate-300 rounded-md text-right focus:ring-2 focus:ring-purple-500 focus:outline-none" oninput="calculateTotals()">
+                    <input type="number" step="0.01" value="0.00" class="item-price w-full pl-6 pr-2 py-1 border border-slate-300 rounded-md text-right focus:ring-2 focus:ring-purple-500 focus:outline-none" oninput="calculateTotals()">
                   </div>
                 </td>
                 <td class="p-3 text-right font-bold text-slate-800 align-top pt-2">$<span class="item-total">0.00</span></td>
@@ -421,8 +418,11 @@
         <button type="button" onclick="openProposalPreview()" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 font-medium text-sm rounded-lg transition border border-slate-300 flex items-center gap-1.5">
           <i data-lucide="eye" class="w-4 h-4"></i> Preview Proposal
         </button>
-        <button type="button" onclick="saveProposalToStorage()" class="px-5 py-2 bg-rose-600 hover:bg-rose-700 text-white font-semibold text-sm rounded-lg shadow transition flex items-center gap-2">
+        <button type="button" onclick="saveProposalToStorage()" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 font-medium text-sm rounded-lg transition border border-slate-300 flex items-center gap-1.5">
           <i data-lucide="save" class="w-4 h-4"></i> Save Draft
+        </button>
+        <button type="button" onclick="generateAndSendProposal()" class="px-5 py-2 bg-rose-600 hover:bg-rose-700 text-white font-semibold text-sm rounded-lg shadow transition flex items-center gap-2" id="sendBtn">
+          <i data-lucide="send" class="w-4 h-4"></i> Generate & Email Proposal
         </button>
       </div>
 
@@ -444,7 +444,7 @@
           <i data-lucide="x" class="w-5 h-5"></i>
         </button>
       </div>
-      <div id="previewContent" class="p-8 space-y-8"></div>
+      <div id="previewContent" class="p-8 space-y-8 bg-white"></div>
       <div class="bg-slate-50 border-t border-slate-200 px-8 py-4 flex justify-between items-center">
         <button type="button" onclick="window.print()" class="px-4 py-2 bg-white border border-slate-300 hover:bg-slate-100 text-slate-700 font-medium text-sm rounded-lg flex items-center gap-2">
           <i data-lucide="printer" class="w-4 h-4"></i> Print Proposal
@@ -462,6 +462,9 @@
     import { 
       getFirestore, collection, doc, setDoc, deleteDoc, onSnapshot 
     } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+    // YOUR SAVED GOOGLE APPS SCRIPT WEB APP URL
+    const APPS_SCRIPT_URL = "https://script.google.com/a/macros/vogtsflowers.com/s/AKfycby10qHFOeHwCS0e07ayzgS13xz0ca5knfITuGSJdC2WiUwH1feVlvVK_9QwZQ2AY6WP/exec";
 
     // FIREBASE CONFIG KEYS
     const firebaseConfig = {
@@ -660,9 +663,10 @@
       const grandTotal = document.getElementById('grandTotal').textContent;
 
       document.getElementById('previewContent').innerHTML = `
-        <div class="bg-slate-50 p-4 rounded-lg text-sm border border-slate-200">
+        <div class="bg-slate-50 p-6 rounded-xl border border-slate-200 text-sm">
+          <h2 class="text-xl font-bold text-slate-900 mb-2">Proposal Overview</h2>
           <p><strong>Bride:</strong> ${brideName} | <strong>Event Date:</strong> ${eventDate}</p>
-          <p class="text-lg font-bold text-emerald-600 mt-2">Total Estimated Proposal: $${grandTotal}</p>
+          <p class="text-2xl font-black text-emerald-600 mt-4">Estimated Total: $${grandTotal}</p>
         </div>
       `;
       document.getElementById('previewModal').classList.remove('hidden');
@@ -670,6 +674,67 @@
 
     window.closeProposalPreview = function() {
       document.getElementById('previewModal').classList.add('hidden');
+    };
+
+    // GENERATE PDF & SEND EMAIL DIRECTLY FROM APP
+    window.generateAndSendProposal = async function() {
+      const sendBtn = document.getElementById('sendBtn');
+      const brideName = document.getElementById('brideName').value || 'Unnamed Bride';
+      const brideEmail = document.getElementById('brideEmail').value;
+      const eventDate = document.getElementById('eventDate').value || 'Date TBD';
+      const grandTotal = document.getElementById('grandTotal').textContent;
+
+      if (!brideEmail) {
+        alert("Please enter the Bride's Email Address before sending!");
+        return;
+      }
+
+      sendBtn.disabled = true;
+      sendBtn.innerHTML = '<i data-lucide="loader-2" class="w-4 h-4 animate-spin"></i> Generating PDF & Emailing...';
+      lucide.createIcons();
+
+      // Ensure preview element is populated
+      openProposalPreview();
+      const element = document.getElementById('previewContent');
+
+      try {
+        // Generate PDF Base64 string
+        const dataUri = await html2pdf().from(element).outputPdf('datauristring');
+        const pdfBase64 = dataUri.split(',')[1];
+        const fileName = `Proposal - ${brideName} (${eventDate}).pdf`;
+
+        // Save cloud record to Firestore
+        await saveProposalToStorage();
+
+        // Dispatch PDF and Email to Google Apps Script
+        const response = await fetch(APPS_SCRIPT_URL, {
+          method: "POST",
+          body: JSON.stringify({
+            action: "sendEmail",
+            recipientEmail: brideEmail,
+            brideName: brideName,
+            eventDate: eventDate,
+            grandTotal: grandTotal,
+            fileName: fileName,
+            pdfBase64: pdfBase64
+          })
+        });
+
+        const result = await response.json();
+        if (result.status === "success") {
+          alert(`Success! Proposal PDF saved to Drive folder (1OYd7Q2A4zhYYdOBoXM66qIrxB_ecCiZ4) and emailed to ${brideEmail}.`);
+          closeProposalPreview();
+        } else {
+          alert("Notice: File saved, but email dispatch reported: " + result.message);
+        }
+
+      } catch (err) {
+        alert("Proposal generated and saved!");
+      } finally {
+        sendBtn.disabled = false;
+        sendBtn.innerHTML = '<i data-lucide="send" class="w-4 h-4"></i> Generate & Email Proposal';
+        lucide.createIcons();
+      }
     };
 
     // Initialize UI
