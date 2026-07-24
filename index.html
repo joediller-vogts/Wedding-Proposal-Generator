@@ -572,7 +572,6 @@
       document.getElementById('receptionVenue').value = p.receptionVenue || '';
       document.getElementById('themeNotes').value = p.themeNotes || '';
 
-      // Clear existing rows and re-populate saved items
       document.getElementById('brideTableBody').innerHTML = '';
       document.getElementById('partyTableBody').innerHTML = '';
       document.getElementById('boutsTableBody').innerHTML = '';
@@ -657,7 +656,6 @@
     };
 
     window.saveProposalToStorage = async function() {
-      // FORCE CALCULATION BEFORE SAVING TO CLOUD
       calculateTotals();
 
       const id = currentProposalId || Date.now().toString();
@@ -839,7 +837,7 @@
           })
         });
 
-        alert(`Proposal dispatched! The PDF is being uploaded to Google Drive and emailed to ${brideEmail}.`);
+        alert(`Proposal generated! The PDF is being uploaded to your Google Drive folder and emailed to ${brideEmail}.`);
         closeProposalPreview();
 
       } catch (err) {
