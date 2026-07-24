@@ -490,7 +490,7 @@
       getFirestore, collection, doc, setDoc, deleteDoc, onSnapshot 
     } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
-    const APPS_SCRIPT_URL = "https://script.google.com/a/macros/vogtsflowers.com/s/AKfycby10qHFOeHwCS0e07ayzgS13xz0ca5knfITuGSJdC2WiUwH1feVlvVK_9QwZQ2AY6WP/exec";
+    const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycby10qHFOeHwCS0e07ayzgS13xz0ca5knfITuGSJdC2WiUwH1feVlvVK_9QwZQ2AY6WP/exec";
 
     const firebaseConfig = {
       apiKey: "AIzaSyCFSufqDxc_iUpjXodETuWJxscpqw3oD6k",
@@ -778,13 +778,13 @@
       calculateTotals();
 
       const brideName = document.getElementById('brideName').value || 'N/A';
-      const groomName = document.getElementById('groomName').value || 'N/A';
+      const groomName = document.getElementById('groomName').value || '';
       const eventDate = document.getElementById('eventDate').value || 'N/A';
       const bridePhone = document.getElementById('bridePhone').value || 'N/A';
       const brideEmail = document.getElementById('brideEmail').value || 'N/A';
       const ceremonyVenue = document.getElementById('ceremonyVenue').value || 'N/A';
       const receptionVenue = document.getElementById('receptionVenue').value || 'N/A';
-      const themeNotes = document.getElementById('themeNotes').value || 'None';
+      const themeNotes = document.getElementById('themeNotes').value || '';
       const grandTotal = document.getElementById('grandTotal').textContent;
 
       const sectionsMap = [
@@ -808,16 +808,17 @@
           const price = parseFloat(row.querySelector('.item-price')?.value) || 0;
           const total = (qty * price).toFixed(2);
 
-          if (qty > 0 || name) {
+          // Only include line items that have a QTY > 0
+          if (qty > 0) {
             sectionRowsHtml += `
-              <tr class="border-b border-slate-100">
-                <td class="py-2 px-3">
-                  <div class="font-semibold text-slate-800">${name || 'Item'}</div>
-                  ${notes ? `<div class="text-xs text-slate-500 italic">${notes}</div>` : ''}
+              <tr style="border-bottom: 1px solid #e2e8f0;">
+                <td style="padding: 6px 8px; width: 55%;">
+                  <div style="font-weight: 600; font-size: 11px; color: #0f172a;">${name || 'Item'}</div>
+                  ${notes ? `<div style="font-size: 10px; color: #64748b; font-style: italic; margin-top: 2px;">${notes}</div>` : ''}
                 </td>
-                <td class="py-2 px-3 text-center">${qty}</td>
-                <td class="py-2 px-3 text-right">$${price.toFixed(2)}</td>
-                <td class="py-2 px-3 text-right font-bold text-slate-800">$${total}</td>
+                <td style="padding: 6px 8px; text-align: center; width: 15%; font-size: 11px;">${qty}</td>
+                <td style="padding: 6px 8px; text-align: right; width: 15%; font-size: 11px;">$${price.toFixed(2)}</td>
+                <td style="padding: 6px 8px; text-align: right; width: 15%; font-size: 11px; font-weight: 700; color: #0f172a;">$${total}</td>
               </tr>
             `;
           }
@@ -825,15 +826,17 @@
 
         if (sectionRowsHtml) {
           itemizedHtml += `
-            <div class="mb-6">
-              <h4 class="text-sm font-bold text-slate-900 uppercase tracking-wider bg-slate-100 px-3 py-1.5 rounded-md mb-2">${sec.title}</h4>
-              <table class="w-full text-left text-xs">
+            <div style="margin-bottom: 16px;">
+              <div style="font-size: 11px; font-weight: 700; color: #881337; text-transform: uppercase; background-color: #ffe4e6; padding: 4px 8px; border-radius: 4px; margin-bottom: 6px;">
+                ${sec.title}
+              </div>
+              <table style="width: 100%; border-collapse: collapse; text-align: left;">
                 <thead>
-                  <tr class="text-slate-400 uppercase text-[10px] border-b border-slate-200">
-                    <th class="pb-1 px-3">Description</th>
-                    <th class="pb-1 px-3 text-center w-16">QTY</th>
-                    <th class="pb-1 px-3 text-right w-24">Price</th>
-                    <th class="pb-1 px-3 text-right w-24">Total</th>
+                  <tr style="border-bottom: 1px solid #cbd5e1; font-size: 9px; text-transform: uppercase; color: #64748b;">
+                    <th style="padding: 4px 8px; width: 55%;">Description</th>
+                    <th style="padding: 4px 8px; text-align: center; width: 15%;">QTY</th>
+                    <th style="padding: 4px 8px; text-align: right; width: 15%;">Price</th>
+                    <th style="padding: 4px 8px; text-align: right; width: 15%;">Total</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -846,34 +849,58 @@
       });
 
       document.getElementById('previewContent').innerHTML = `
-        <div class="space-y-6">
+        <div id="pdfPrintContainer" style="font-family: Arial, sans-serif; color: #1e293b; padding: 10px; max-width: 750px; margin: 0 auto; background: #ffffff;">
           
-          <!-- Header Overview Card -->
-          <div class="bg-rose-50/50 p-5 rounded-xl border border-rose-100 grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+          <!-- BRAND HEADER -->
+          <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #881337; padding-bottom: 12px; margin-bottom: 16px;">
             <div>
-              <p class="text-slate-500 uppercase font-bold text-[10px]">Client Details</p>
-              <p class="text-base font-bold text-slate-900">${brideName} ${groomName !== 'N/A' ? '& ' + groomName : ''}</p>
-              <p class="text-slate-600">Phone: ${bridePhone} | Email: ${brideEmail}</p>
+              <h1 style="font-size: 20px; font-weight: 800; color: #881337; margin: 0;">Vogt's Flowers & Gifts</h1>
+              <p style="font-size: 10px; color: #64748b; margin: 2px 0 0 0;">Official Wedding Floral Proposal</p>
             </div>
-            <div>
-              <p class="text-slate-500 uppercase font-bold text-[10px]">Event Details</p>
-              <p class="font-semibold text-slate-800">Date: ${eventDate}</p>
-              <p class="text-slate-600">Ceremony: ${ceremonyVenue}</p>
-              <p class="text-slate-600">Reception: ${receptionVenue}</p>
+            <div style="text-align: right; font-size: 10px; color: #64748b;">
+              <p style="margin: 0; font-weight: bold; color: #1e293b;">events@vogtsflowers.com</p>
+              <p style="margin: 2px 0 0 0;">www.vogtsflowers.com</p>
             </div>
-            ${themeNotes !== 'None' ? `<div class="md:col-span-2 text-slate-600 border-t border-rose-100 pt-2"><span class="font-bold">Color / Theme Notes:</span> ${themeNotes}</div>` : ''}
           </div>
 
-          <!-- Itemized Breakdown -->
+          <!-- CLIENT & LOGISTICS GRID -->
+          <table style="width: 100%; background-color: #f8fafc; border: 1px solid #e2e8f0; border-radius: 6px; padding: 10px; margin-bottom: 16px; font-size: 11px;">
+            <tr>
+              <td style="vertical-align: top; width: 50%; padding-right: 10px;">
+                <p style="margin: 0 0 4px 0; font-weight: bold; color: #881337; text-transform: uppercase; font-size: 9px;">Client Details</p>
+                <p style="margin: 0 0 2px 0; font-weight: bold; font-size: 13px;">${brideName} ${groomName ? '& ' + groomName : ''}</p>
+                <p style="margin: 0; color: #475569;">Phone: ${bridePhone}</p>
+                <p style="margin: 0; color: #475569;">Email: ${brideEmail}</p>
+              </td>
+              <td style="vertical-align: top; width: 50%; padding-left: 10px;">
+                <p style="margin: 0 0 4px 0; font-weight: bold; color: #881337; text-transform: uppercase; font-size: 9px;">Event Logistics</p>
+                <p style="margin: 0 0 2px 0; font-weight: bold; color: #1e293b;">Event Date: ${eventDate}</p>
+                <p style="margin: 0; color: #475569;">Ceremony: ${ceremonyVenue}</p>
+                <p style="margin: 0; color: #475569;">Reception: ${receptionVenue}</p>
+              </td>
+            </tr>
+            ${themeNotes ? `
+              <tr>
+                <td colspan="2" style="border-top: 1px solid #e2e8f0; margin-top: 8px; padding-top: 6px; font-size: 10px; color: #475569;">
+                  <strong>Color Palette / Vibe:</strong> ${themeNotes}
+                </td>
+              </tr>
+            ` : ''}
+          </table>
+
+          <!-- ITEMIZED SECTIONS -->
           <div>
-            ${itemizedHtml || '<p class="text-xs text-slate-400 italic">No line items populated yet.</p>'}
+            ${itemizedHtml || '<p style="font-size: 11px; color: #94a3b8; font-style: italic;">No line items with QTY > 0 selected.</p>'}
           </div>
 
-          <!-- Grand Total Box -->
-          <div class="flex justify-end border-t-2 border-slate-900 pt-4">
-            <div class="text-right">
-              <span class="text-xs font-bold text-slate-400 uppercase tracking-wider block">Total Estimated Proposal</span>
-              <span class="text-3xl font-black text-emerald-600">$${grandTotal}</span>
+          <!-- GRAND TOTAL FOOTER -->
+          <div style="border-top: 2px solid #0f172a; margin-top: 20px; padding-top: 10px; display: flex; justify-content: space-between; align-items: center;">
+            <p style="font-size: 9px; color: #64748b; margin: 0; max-width: 350px;">
+              * Prices are estimated based on initial consultation notes and subject to seasonal stem availability.
+            </p>
+            <div style="text-align: right;">
+              <span style="font-size: 10px; font-weight: bold; color: #64748b; text-transform: uppercase; display: block;">Grand Total Estimated</span>
+              <span style="font-size: 22px; font-weight: 900; color: #059669;">$${grandTotal}</span>
             </div>
           </div>
 
@@ -906,28 +933,37 @@
       lucide.createIcons();
 
       openProposalPreview();
-      const element = document.getElementById('previewContent');
+      const element = document.getElementById('pdfPrintContainer');
+
+      const opt = {
+        margin:       [0.4, 0.4, 0.4, 0.4],
+        filename:     `Proposal - ${brideName} (${eventDate}).pdf`,
+        image:        { type: 'jpeg', quality: 0.98 },
+        html2canvas:  { scale: 2, useCORS: true, logging: false },
+        jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
+      };
 
       try {
-        const dataUri = await html2pdf().from(element).outputPdf('datauristring');
+        const dataUri = await html2pdf().set(opt).from(element).outputPdf('datauristring');
         const pdfBase64 = dataUri.split(',')[1];
         const fileName = `Proposal - ${brideName} (${eventDate}).pdf`;
 
         await saveProposalToStorage();
 
+        const formData = new FormData();
+        formData.append('payload', JSON.stringify({
+          action: "sendEmail",
+          recipientEmail: brideEmail,
+          brideName: brideName,
+          eventDate: eventDate,
+          grandTotal: grandTotal,
+          fileName: fileName,
+          pdfBase64: pdfBase64
+        }));
+
         await fetch(APPS_SCRIPT_URL, {
           method: "POST",
-          mode: "no-cors",
-          headers: { "Content-Type": "text/plain" },
-          body: JSON.stringify({
-            action: "sendEmail",
-            recipientEmail: brideEmail,
-            brideName: brideName,
-            eventDate: eventDate,
-            grandTotal: grandTotal,
-            fileName: fileName,
-            pdfBase64: pdfBase64
-          })
+          body: formData
         });
 
         alert(`Proposal generated! The PDF is being uploaded to your Google Drive folder and emailed to ${brideEmail}.`);
