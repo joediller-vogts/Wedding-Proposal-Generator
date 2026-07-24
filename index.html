@@ -776,17 +776,110 @@
 
     window.openProposalPreview = function() {
       calculateTotals();
-      const brideName = document.getElementById('brideName').value || "N/A";
-      const eventDate = document.getElementById('eventDate').value || "N/A";
+
+      const brideName = document.getElementById('brideName').value || 'N/A';
+      const groomName = document.getElementById('groomName').value || 'N/A';
+      const eventDate = document.getElementById('eventDate').value || 'N/A';
+      const bridePhone = document.getElementById('bridePhone').value || 'N/A';
+      const brideEmail = document.getElementById('brideEmail').value || 'N/A';
+      const ceremonyVenue = document.getElementById('ceremonyVenue').value || 'N/A';
+      const receptionVenue = document.getElementById('receptionVenue').value || 'N/A';
+      const themeNotes = document.getElementById('themeNotes').value || 'None';
       const grandTotal = document.getElementById('grandTotal').textContent;
 
+      const sectionsMap = [
+        { id: 'brideTableBody', title: "Bride's Bouquet" },
+        { id: 'partyTableBody', title: "Bridal Party" },
+        { id: 'boutsTableBody', title: "Corsages & Boutonnieres" },
+        { id: 'ceremonyTableBody', title: "Ceremony Florals & Rentals" },
+        { id: 'receptionTableBody', title: "Reception Florals & Rentals" }
+      ];
+
+      let itemizedHtml = '';
+
+      sectionsMap.forEach(sec => {
+        const rows = document.querySelectorAll(`#${sec.id} tr`);
+        let sectionRowsHtml = '';
+
+        rows.forEach(row => {
+          const name = row.querySelector('input[type="text"]')?.value || '';
+          const notes = row.querySelector('textarea')?.value || '';
+          const qty = parseFloat(row.querySelector('.item-qty')?.value) || 0;
+          const price = parseFloat(row.querySelector('.item-price')?.value) || 0;
+          const total = (qty * price).toFixed(2);
+
+          if (qty > 0 || name) {
+            sectionRowsHtml += `
+              <tr class="border-b border-slate-100">
+                <td class="py-2 px-3">
+                  <div class="font-semibold text-slate-800">${name || 'Item'}</div>
+                  ${notes ? `<div class="text-xs text-slate-500 italic">${notes}</div>` : ''}
+                </td>
+                <td class="py-2 px-3 text-center">${qty}</td>
+                <td class="py-2 px-3 text-right">$${price.toFixed(2)}</td>
+                <td class="py-2 px-3 text-right font-bold text-slate-800">$${total}</td>
+              </tr>
+            `;
+          }
+        });
+
+        if (sectionRowsHtml) {
+          itemizedHtml += `
+            <div class="mb-6">
+              <h4 class="text-sm font-bold text-slate-900 uppercase tracking-wider bg-slate-100 px-3 py-1.5 rounded-md mb-2">${sec.title}</h4>
+              <table class="w-full text-left text-xs">
+                <thead>
+                  <tr class="text-slate-400 uppercase text-[10px] border-b border-slate-200">
+                    <th class="pb-1 px-3">Description</th>
+                    <th class="pb-1 px-3 text-center w-16">QTY</th>
+                    <th class="pb-1 px-3 text-right w-24">Price</th>
+                    <th class="pb-1 px-3 text-right w-24">Total</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  ${sectionRowsHtml}
+                </tbody>
+              </table>
+            </div>
+          `;
+        }
+      });
+
       document.getElementById('previewContent').innerHTML = `
-        <div class="bg-slate-50 p-6 rounded-xl border border-slate-200 text-sm">
-          <h2 class="text-xl font-bold text-slate-900 mb-2">Proposal Overview</h2>
-          <p><strong>Bride:</strong> ${brideName} | <strong>Event Date:</strong> ${eventDate}</p>
-          <p class="text-2xl font-black text-emerald-600 mt-4">Estimated Total: $${grandTotal}</p>
+        <div class="space-y-6">
+          
+          <!-- Header Overview Card -->
+          <div class="bg-rose-50/50 p-5 rounded-xl border border-rose-100 grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+            <div>
+              <p class="text-slate-500 uppercase font-bold text-[10px]">Client Details</p>
+              <p class="text-base font-bold text-slate-900">${brideName} ${groomName !== 'N/A' ? '& ' + groomName : ''}</p>
+              <p class="text-slate-600">Phone: ${bridePhone} | Email: ${brideEmail}</p>
+            </div>
+            <div>
+              <p class="text-slate-500 uppercase font-bold text-[10px]">Event Details</p>
+              <p class="font-semibold text-slate-800">Date: ${eventDate}</p>
+              <p class="text-slate-600">Ceremony: ${ceremonyVenue}</p>
+              <p class="text-slate-600">Reception: ${receptionVenue}</p>
+            </div>
+            ${themeNotes !== 'None' ? `<div class="md:col-span-2 text-slate-600 border-t border-rose-100 pt-2"><span class="font-bold">Color / Theme Notes:</span> ${themeNotes}</div>` : ''}
+          </div>
+
+          <!-- Itemized Breakdown -->
+          <div>
+            ${itemizedHtml || '<p class="text-xs text-slate-400 italic">No line items populated yet.</p>'}
+          </div>
+
+          <!-- Grand Total Box -->
+          <div class="flex justify-end border-t-2 border-slate-900 pt-4">
+            <div class="text-right">
+              <span class="text-xs font-bold text-slate-400 uppercase tracking-wider block">Total Estimated Proposal</span>
+              <span class="text-3xl font-black text-emerald-600">$${grandTotal}</span>
+            </div>
+          </div>
+
         </div>
       `;
+
       document.getElementById('previewModal').classList.remove('hidden');
     };
 
