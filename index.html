@@ -811,14 +811,14 @@
           // Only include line items that have a QTY > 0
           if (qty > 0) {
             sectionRowsHtml += `
-              <tr style="border-bottom: 1px solid #e2e8f0;">
-                <td style="padding: 6px 8px; width: 55%;">
-                  <div style="font-weight: 600; font-size: 11px; color: #0f172a;">${name || 'Item'}</div>
-                  ${notes ? `<div style="font-size: 10px; color: #64748b; font-style: italic; margin-top: 2px;">${notes}</div>` : ''}
+              <tr style="border-bottom: 1px solid #f1f5f9;">
+                <td style="padding: 4px 6px; width: 55%;">
+                  <div style="font-weight: 600; font-size: 10.5px; color: #0f172a;">${name || 'Item'}</div>
+                  ${notes ? `<div style="font-size: 9.5px; color: #64748b; font-style: italic; margin-top: 1px;">${notes}</div>` : ''}
                 </td>
-                <td style="padding: 6px 8px; text-align: center; width: 15%; font-size: 11px;">${qty}</td>
-                <td style="padding: 6px 8px; text-align: right; width: 15%; font-size: 11px;">$${price.toFixed(2)}</td>
-                <td style="padding: 6px 8px; text-align: right; width: 15%; font-size: 11px; font-weight: 700; color: #0f172a;">$${total}</td>
+                <td style="padding: 4px 6px; text-align: center; width: 15%; font-size: 10.5px;">${qty}</td>
+                <td style="padding: 4px 6px; text-align: right; width: 15%; font-size: 10.5px;">$${price.toFixed(2)}</td>
+                <td style="padding: 4px 6px; text-align: right; width: 15%; font-size: 10.5px; font-weight: 700; color: #0f172a;">$${total}</td>
               </tr>
             `;
           }
@@ -826,17 +826,17 @@
 
         if (sectionRowsHtml) {
           itemizedHtml += `
-            <div style="margin-bottom: 16px;">
-              <div style="font-size: 11px; font-weight: 700; color: #881337; text-transform: uppercase; background-color: #ffe4e6; padding: 4px 8px; border-radius: 4px; margin-bottom: 6px;">
+            <div style="margin-bottom: 10px; page-break-inside: avoid;">
+              <div style="font-size: 10px; font-weight: 700; color: #881337; text-transform: uppercase; background-color: #ffe4e6; padding: 3px 6px; border-radius: 4px; margin-bottom: 4px;">
                 ${sec.title}
               </div>
               <table style="width: 100%; border-collapse: collapse; text-align: left;">
                 <thead>
-                  <tr style="border-bottom: 1px solid #cbd5e1; font-size: 9px; text-transform: uppercase; color: #64748b;">
-                    <th style="padding: 4px 8px; width: 55%;">Description</th>
-                    <th style="padding: 4px 8px; text-align: center; width: 15%;">QTY</th>
-                    <th style="padding: 4px 8px; text-align: right; width: 15%;">Price</th>
-                    <th style="padding: 4px 8px; text-align: right; width: 15%;">Total</th>
+                  <tr style="border-bottom: 1px solid #cbd5e1; font-size: 8.5px; text-transform: uppercase; color: #64748b;">
+                    <th style="padding: 2px 6px; width: 55%;">Description</th>
+                    <th style="padding: 2px 6px; text-align: center; width: 15%;">QTY</th>
+                    <th style="padding: 2px 6px; text-align: right; width: 15%;">Price</th>
+                    <th style="padding: 2px 6px; text-align: right; width: 15%;">Total</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -849,31 +849,34 @@
       });
 
       document.getElementById('previewContent').innerHTML = `
-        <div id="pdfPrintContainer" style="font-family: Arial, sans-serif; color: #1e293b; padding: 10px; max-width: 750px; margin: 0 auto; background: #ffffff;">
+        <div id="pdfPrintContainer" style="font-family: Arial, sans-serif; color: #1e293b; padding: 8px; max-width: 750px; margin: 0 auto; background: #ffffff;">
           
-          <!-- BRAND HEADER -->
-          <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #881337; padding-bottom: 12px; margin-bottom: 16px;">
-            <div>
-              <h1 style="font-size: 20px; font-weight: 800; color: #881337; margin: 0;">Vogt's Flowers & Gifts</h1>
-              <p style="font-size: 10px; color: #64748b; margin: 2px 0 0 0;">Official Wedding Floral Proposal</p>
+          <!-- BRAND HEADER WITH LOGO -->
+          <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #881337; padding-bottom: 8px; margin-bottom: 10px;">
+            <div style="display: flex; items-center: center; gap: 10px;">
+              <img src="logo.png" alt="Vogt's Flowers Logo" style="height: 42px; width: auto; object-fit: contain;" onerror="this.style.display='none'">
+              <div>
+                <h1 style="font-size: 18px; font-weight: 800; color: #881337; margin: 0; line-height: 1.1;">Vogt's Flowers & Gifts</h1>
+                <p style="font-size: 9.5px; color: #64748b; margin: 2px 0 0 0;">Official Wedding Floral Proposal</p>
+              </div>
             </div>
-            <div style="text-align: right; font-size: 10px; color: #64748b;">
-              <p style="margin: 0; font-weight: bold; color: #1e293b;">events@vogtsflowers.com</p>
-              <p style="margin: 2px 0 0 0;">www.vogtsflowers.com</p>
+            <div style="text-align: right; font-size: 9.5px; color: #64748b;">
+              <p style="margin: 0; font-weight: bold; color: #881337;">events@vogtsflowers.com</p>
+              <p style="margin: 1px 0 0 0;">www.vogtsflowers.com</p>
             </div>
           </div>
 
           <!-- CLIENT & LOGISTICS GRID -->
-          <table style="width: 100%; background-color: #f8fafc; border: 1px solid #e2e8f0; border-radius: 6px; padding: 10px; margin-bottom: 16px; font-size: 11px;">
+          <table style="width: 100%; background-color: #f8fafc; border: 1px solid #e2e8f0; border-radius: 6px; padding: 8px; margin-bottom: 10px; font-size: 10.5px;">
             <tr>
-              <td style="vertical-align: top; width: 50%; padding-right: 10px;">
-                <p style="margin: 0 0 4px 0; font-weight: bold; color: #881337; text-transform: uppercase; font-size: 9px;">Client Details</p>
-                <p style="margin: 0 0 2px 0; font-weight: bold; font-size: 13px;">${brideName} ${groomName ? '& ' + groomName : ''}</p>
+              <td style="vertical-align: top; width: 50%; padding-right: 8px;">
+                <p style="margin: 0 0 2px 0; font-weight: bold; color: #881337; text-transform: uppercase; font-size: 8.5px;">Client Details</p>
+                <p style="margin: 0 0 2px 0; font-weight: bold; font-size: 12px; color: #0f172a;">${brideName} ${groomName ? '& ' + groomName : ''}</p>
                 <p style="margin: 0; color: #475569;">Phone: ${bridePhone}</p>
                 <p style="margin: 0; color: #475569;">Email: ${brideEmail}</p>
               </td>
-              <td style="vertical-align: top; width: 50%; padding-left: 10px;">
-                <p style="margin: 0 0 4px 0; font-weight: bold; color: #881337; text-transform: uppercase; font-size: 9px;">Event Logistics</p>
+              <td style="vertical-align: top; width: 50%; padding-left: 8px;">
+                <p style="margin: 0 0 2px 0; font-weight: bold; color: #881337; text-transform: uppercase; font-size: 8.5px;">Event Logistics</p>
                 <p style="margin: 0 0 2px 0; font-weight: bold; color: #1e293b;">Event Date: ${eventDate}</p>
                 <p style="margin: 0; color: #475569;">Ceremony: ${ceremonyVenue}</p>
                 <p style="margin: 0; color: #475569;">Reception: ${receptionVenue}</p>
@@ -881,7 +884,7 @@
             </tr>
             ${themeNotes ? `
               <tr>
-                <td colspan="2" style="border-top: 1px solid #e2e8f0; margin-top: 8px; padding-top: 6px; font-size: 10px; color: #475569;">
+                <td colspan="2" style="border-top: 1px solid #e2e8f0; margin-top: 6px; padding-top: 4px; font-size: 9.5px; color: #475569;">
                   <strong>Color Palette / Vibe:</strong> ${themeNotes}
                 </td>
               </tr>
@@ -890,17 +893,30 @@
 
           <!-- ITEMIZED SECTIONS -->
           <div>
-            ${itemizedHtml || '<p style="font-size: 11px; color: #94a3b8; font-style: italic;">No line items with QTY > 0 selected.</p>'}
+            ${itemizedHtml || '<p style="font-size: 10.5px; color: #94a3b8; font-style: italic;">No line items with QTY > 0 selected.</p>'}
           </div>
 
-          <!-- GRAND TOTAL FOOTER -->
-          <div style="border-top: 2px solid #0f172a; margin-top: 20px; padding-top: 10px; display: flex; justify-content: space-between; align-items: center;">
-            <p style="font-size: 9px; color: #64748b; margin: 0; max-width: 350px;">
-              * Prices are estimated based on initial consultation notes and subject to seasonal stem availability.
-            </p>
-            <div style="text-align: right;">
-              <span style="font-size: 10px; font-weight: bold; color: #64748b; text-transform: uppercase; display: block;">Grand Total Estimated</span>
-              <span style="font-size: 22px; font-weight: 900; color: #059669;">$${grandTotal}</span>
+          <!-- GRAND TOTAL & LOCATIONS FOOTER SECTION -->
+          <div style="page-break-inside: avoid; border-top: 2px solid #0f172a; margin-top: 12px; padding-top: 8px;">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 10px;">
+              <p style="font-size: 8.5px; color: #64748b; margin: 0; max-width: 380px; line-height: 1.3;">
+                * Prices are estimated based on initial consultation notes and subject to seasonal stem availability. A non-refundable deposit is required to hold your date.
+              </p>
+              <div style="text-align: right;">
+                <span style="font-size: 9px; font-weight: bold; color: #64748b; text-transform: uppercase; display: block;">Grand Total Estimated</span>
+                <span style="font-size: 20px; font-weight: 900; color: #059669;">$${grandTotal}</span>
+              </div>
+            </div>
+
+            <!-- ALL LOCATION CONTACT INFORMATION -->
+            <div style="background-color: #f8fafc; border: 1px solid #e2e8f0; border-radius: 6px; padding: 6px 10px; font-size: 8.5px; color: #475569;">
+              <p style="margin: 0 0 3px 0; font-weight: bold; color: #881337; text-transform: uppercase; text-align: center; font-size: 8px; tracking-wide: 0.5px;">Vogt's Flowers Locations</p>
+              <div style="display: flex; justify-content: space-between; gap: 4px; border-top: 1px solid #e2e8f0; padding-top: 4px;">
+                <div><strong>Flint:</strong> 810-238-6487</div>
+                <div><strong>Grand Blanc:</strong> 810-694-0008</div>
+                <div><strong>Davison:</strong> 810-653-3700</div>
+                <div><strong>Flushing:</strong> 810-659-5741</div>
+              </div>
             </div>
           </div>
 
@@ -936,7 +952,7 @@
       const element = document.getElementById('pdfPrintContainer');
 
       const opt = {
-        margin:       [0.4, 0.4, 0.4, 0.4],
+        margin:       [0.3, 0.3, 0.3, 0.3],
         filename:     `Proposal - ${brideName} (${eventDate}).pdf`,
         image:        { type: 'jpeg', quality: 0.98 },
         html2canvas:  { scale: 2, useCORS: true, logging: false },
