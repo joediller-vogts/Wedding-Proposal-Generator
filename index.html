@@ -490,10 +490,8 @@
       getFirestore, collection, doc, setDoc, deleteDoc, onSnapshot 
     } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
-    // GOOGLE APPS SCRIPT WEB APP URL
     const APPS_SCRIPT_URL = "https://script.google.com/a/macros/vogtsflowers.com/s/AKfycby10qHFOeHwCS0e07ayzgS13xz0ca5knfITuGSJdC2WiUwH1feVlvVK_9QwZQ2AY6WP/exec";
 
-    // FIREBASE CONFIG KEYS
     const firebaseConfig = {
       apiKey: "AIzaSyCFSufqDxc_iUpjXodETuWJxscpqw3oD6k",
       authDomain: "vogts-wedding-proposal-storage.firebaseapp.com",
@@ -510,7 +508,6 @@
 
     let currentProposalId = null;
 
-    // REAL-TIME CLOUD DATABASE SYNC
     onSnapshot(proposalsCol, (snapshot) => {
       const proposals = [];
       snapshot.forEach((doc) => {
@@ -520,7 +517,6 @@
       renderDashboardTable();
     });
 
-    // NAVIGATION
     window.showDashboard = function() {
       document.getElementById('dashboardView').classList.remove('hidden');
       document.getElementById('editorView').classList.add('hidden');
@@ -531,7 +527,7 @@
     window.createNewProposal = function() {
       currentProposalId = Date.now().toString();
       clearEditorFields();
-      resetDefaultBaseItems(); // Restores all pre-filled base items
+      resetDefaultBaseItems();
       document.getElementById('dashboardView').classList.add('hidden');
       document.getElementById('editorView').classList.remove('hidden');
       document.getElementById('editorActionBar').classList.remove('hidden');
@@ -539,11 +535,9 @@
     };
 
     function clearEditorFields() {
-      // Clear section info text fields
       document.querySelectorAll('#editorView section input[type="text"], #editorView section input[type="tel"], #editorView section input[type="email"], #editorView section input[type="date"], #editorView section input[type="time"], #editorView section textarea').forEach(el => el.value = '');
     }
 
-    // POPULATES ALL PRE-FILLED EDITABLE BASE LINE ITEMS
     function resetDefaultBaseItems() {
       document.getElementById('brideTableBody').innerHTML = '';
       document.getElementById('partyTableBody').innerHTML = '';
@@ -551,24 +545,15 @@
       document.getElementById('ceremonyTableBody').innerHTML = '';
       document.getElementById('receptionTableBody').innerHTML = '';
 
-      // 1. Bride
-      addStandardRow('brideTableBody', 'rose', "Bride's Bouquet", '0.00');
-
-      // 2. Bridal Party
-      addStandardRow('partyTableBody', 'purple', "Bridesmaid Bouquets", '0.00');
-
-      // 3. Corsages & Boutonnieres
-      addStandardRow('boutsTableBody', 'amber', "Bride Corsage", '39.95');
-      addStandardRow('boutsTableBody', 'amber', "Bridal Party Corsages", '39.95');
-      addStandardRow('boutsTableBody', 'amber', "Mothers / Grandmothers Wrist Corsages", '39.95');
-      addStandardRow('boutsTableBody', 'amber', "Groom Boutonniere", '19.95');
-      addStandardRow('boutsTableBody', 'amber', "Groomsmen Boutonnieres", '19.95');
-
-      // 4. Ceremony
-      addStandardRow('ceremonyTableBody', 'emerald', "Ceremony Arch / Arbor Florals", '0.00');
-
-      // 5. Reception
-      addStandardRow('receptionTableBody', 'blue', "Centerpieces", '0.00');
+      addStandardRow('brideTableBody', 'rose', "Bride's Bouquet", '0.00', '0');
+      addStandardRow('partyTableBody', 'purple', "Bridesmaid Bouquets", '0.00', '0');
+      addStandardRow('boutsTableBody', 'amber', "Bride Corsage", '39.95', '0');
+      addStandardRow('boutsTableBody', 'amber', "Bridal Party Corsages", '39.95', '0');
+      addStandardRow('boutsTableBody', 'amber', "Mothers / Grandmothers Wrist Corsages", '39.95', '0');
+      addStandardRow('boutsTableBody', 'amber', "Groom Boutonniere", '19.95', '0');
+      addStandardRow('boutsTableBody', 'amber', "Groomsmen Boutonnieres", '19.95', '0');
+      addStandardRow('ceremonyTableBody', 'emerald', "Ceremony Arch / Arbor Florals", '0.00', '0');
+      addStandardRow('receptionTableBody', 'blue', "Centerpieces", '0.00', '0');
     }
 
     window.editProposal = function(id) {
@@ -586,6 +571,28 @@
       document.getElementById('ceremonyVenue').value = p.ceremonyVenue || '';
       document.getElementById('receptionVenue').value = p.receptionVenue || '';
       document.getElementById('themeNotes').value = p.themeNotes || '';
+
+      // Clear existing rows and re-populate saved items
+      document.getElementById('brideTableBody').innerHTML = '';
+      document.getElementById('partyTableBody').innerHTML = '';
+      document.getElementById('boutsTableBody').innerHTML = '';
+      document.getElementById('ceremonyTableBody').innerHTML = '';
+      document.getElementById('receptionTableBody').innerHTML = '';
+
+      if (p.items && p.items.length > 0) {
+        p.items.forEach(item => {
+          let targetBody = 'brideTableBody';
+          let theme = 'rose';
+          if (item.section === 'party') { targetBody = 'partyTableBody'; theme = 'purple'; }
+          else if (item.section === 'bouts') { targetBody = 'boutsTableBody'; theme = 'amber'; }
+          else if (item.section === 'ceremony') { targetBody = 'ceremonyTableBody'; theme = 'emerald'; }
+          else if (item.section === 'reception') { targetBody = 'receptionTableBody'; theme = 'blue'; }
+
+          addStandardRow(targetBody, theme, item.name, item.price, item.qty, item.notes);
+        });
+      } else {
+        resetDefaultBaseItems();
+      }
 
       document.getElementById('dashboardView').classList.add('hidden');
       document.getElementById('editorView').classList.remove('hidden');
@@ -650,7 +657,41 @@
     };
 
     window.saveProposalToStorage = async function() {
+      // FORCE CALCULATION BEFORE SAVING TO CLOUD
+      calculateTotals();
+
       const id = currentProposalId || Date.now().toString();
+      
+      const savedItems = [];
+      const sectionsMap = [
+        { tbodyId: 'brideTableBody', section: 'bride' },
+        { tbodyId: 'partyTableBody', section: 'party' },
+        { tbodyId: 'boutsTableBody', section: 'bouts' },
+        { tbodyId: 'ceremonyTableBody', section: 'ceremony' },
+        { tbodyId: 'receptionTableBody', section: 'reception' }
+      ];
+
+      sectionsMap.forEach(({ tbodyId, section }) => {
+        document.querySelectorAll(`#${tbodyId} tr`).forEach(row => {
+          const qty = parseFloat(row.querySelector('.item-qty')?.value) || 0;
+          const name = row.querySelector('input[type="text"]')?.value || '';
+          const notes = row.querySelector('textarea')?.value || '';
+          const price = parseFloat(row.querySelector('.item-price')?.value) || 0;
+          const total = qty * price;
+
+          if (name || qty > 0) {
+            savedItems.push({
+              section: section,
+              name: name,
+              notes: notes,
+              qty: qty,
+              price: price.toFixed(2),
+              total: total.toFixed(2)
+            });
+          }
+        });
+      });
+
       const payload = {
         id: id,
         brideName: document.getElementById('brideName').value,
@@ -663,15 +704,16 @@
         receptionVenue: document.getElementById('receptionVenue').value,
         themeNotes: document.getElementById('themeNotes').value,
         grandTotal: document.getElementById('grandTotal').textContent,
+        items: savedItems,
         updatedAt: new Date().toISOString()
       };
 
       try {
         await setDoc(doc(db, "proposals", id), payload);
-        alert("Proposal saved to cloud! It is now accessible across all devices.");
+        alert("Proposal draft successfully saved to Cloud!");
         showDashboard();
       } catch (err) {
-        alert("Error saving proposal to cloud: " + err.message);
+        alert("Firebase Cloud Error: " + err.message);
       }
     };
 
@@ -694,7 +736,7 @@
       document.getElementById('grandTotal').textContent = grandTotal.toFixed(2);
     };
 
-    window.addStandardRow = function(tbodyId, themeColor = 'rose', name = '', price = '0.00') {
+    window.addStandardRow = function(tbodyId, themeColor = 'rose', name = '', price = '0.00', qty = '0', notes = '') {
       const tbody = document.getElementById(tbodyId);
       if (!tbody) return;
 
@@ -702,10 +744,10 @@
       tr.innerHTML = `
         <td class="p-3">
           <input type="text" value="${name}" placeholder="Item description / details..." class="w-full font-semibold border-b border-transparent hover:border-slate-300 focus:border-${themeColor}-500 focus:outline-none mb-1">
-          <textarea rows="1" class="w-full text-xs bg-slate-50 border border-slate-200 rounded p-1.5 focus:ring-1 focus:ring-${themeColor}-500 focus:outline-none text-slate-600" placeholder="Design details, stems, foliage notes..."></textarea>
+          <textarea rows="1" class="w-full text-xs bg-slate-50 border border-slate-200 rounded p-1.5 focus:ring-1 focus:ring-${themeColor}-500 focus:outline-none text-slate-600" placeholder="Design details, stems, foliage notes...">${notes}</textarea>
         </td>
         <td class="p-3 text-center align-top">
-          <input type="number" min="0" value="0" class="item-qty w-16 text-center border border-slate-300 rounded-md py-1 px-2 focus:ring-2 focus:ring-${themeColor}-500 focus:outline-none" oninput="calculateTotals()">
+          <input type="number" min="0" value="${qty}" class="item-qty w-16 text-center border border-slate-300 rounded-md py-1 px-2 focus:ring-2 focus:ring-${themeColor}-500 focus:outline-none" oninput="calculateTotals()">
         </td>
         <td class="p-3 text-right align-top">
           <div class="relative inline-block w-24">
@@ -730,11 +772,12 @@
       if (!select.value) return;
 
       const [name, price] = select.value.split('|');
-      addStandardRow(tbodyId, themeColor, name, price);
+      addStandardRow(tbodyId, themeColor, name, price, '1');
       select.selectedIndex = 0;
     };
 
     window.openProposalPreview = function() {
+      calculateTotals();
       const brideName = document.getElementById('brideName').value || "N/A";
       const eventDate = document.getElementById('eventDate').value || "N/A";
       const grandTotal = document.getElementById('grandTotal').textContent;
@@ -753,12 +796,13 @@
       document.getElementById('previewModal').classList.add('hidden');
     };
 
-    // GENERATE PDF & SEND EMAIL DIRECTLY FROM APP
     window.generateAndSendProposal = async function() {
       const sendBtn = document.getElementById('sendBtn');
       const brideName = document.getElementById('brideName').value || 'Unnamed Bride';
       const brideEmail = document.getElementById('brideEmail').value;
       const eventDate = document.getElementById('eventDate').value || 'Date TBD';
+      
+      calculateTotals();
       const grandTotal = document.getElementById('grandTotal').textContent;
 
       if (!brideEmail) {
@@ -770,22 +814,20 @@
       sendBtn.innerHTML = '<i data-lucide="loader-2" class="w-4 h-4 animate-spin"></i> Generating PDF & Emailing...';
       lucide.createIcons();
 
-      // Ensure preview element is populated
       openProposalPreview();
       const element = document.getElementById('previewContent');
 
       try {
-        // Generate PDF Base64 string
         const dataUri = await html2pdf().from(element).outputPdf('datauristring');
         const pdfBase64 = dataUri.split(',')[1];
         const fileName = `Proposal - ${brideName} (${eventDate}).pdf`;
 
-        // Save cloud record to Firestore
         await saveProposalToStorage();
 
-        // Dispatch PDF and Email to Google Apps Script
-        const response = await fetch(APPS_SCRIPT_URL, {
+        await fetch(APPS_SCRIPT_URL, {
           method: "POST",
+          mode: "no-cors",
+          headers: { "Content-Type": "text/plain" },
           body: JSON.stringify({
             action: "sendEmail",
             recipientEmail: brideEmail,
@@ -797,13 +839,8 @@
           })
         });
 
-        const result = await response.json();
-        if (result.status === "success") {
-          alert(`Success! Proposal PDF saved to Drive folder (1OYd7Q2A4zhYYdOBoXM66qIrxB_ecCiZ4) and emailed to ${brideEmail}.`);
-          closeProposalPreview();
-        } else {
-          alert("Notice: File saved, but email dispatch reported: " + result.message);
-        }
+        alert(`Proposal dispatched! The PDF is being uploaded to Google Drive and emailed to ${brideEmail}.`);
+        closeProposalPreview();
 
       } catch (err) {
         alert("Proposal generated and saved!");
