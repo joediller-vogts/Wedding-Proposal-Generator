@@ -10,11 +10,6 @@
   <script src="https://unpkg.com/lucide@latest"></script>
   <!-- html2pdf Library for PDF Generation -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
-  <style>
-    /* Print / PDF Engine Hardening */
-    .pdf-table { width: 100%; border-collapse: collapse; table-layout: fixed; }
-    .pdf-table th, .pdf-table td { word-wrap: break-word; overflow: hidden; }
-  </style>
 </head>
 <body class="bg-slate-50 text-slate-800 pb-28">
 
@@ -162,15 +157,15 @@
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4 bg-slate-50 p-4 rounded-lg border border-slate-200">
           <div>
             <label class="block text-xs font-bold text-slate-500 uppercase mb-1">Dress Color & Style</label>
-            <input type="text" id="brideDressNotes" class="w-full bg-white border border-slate-300 rounded-md px-3 py-1.5 text-sm focus:ring-2 focus:ring-rose-500 focus:outline-none">
+            <input type="text" id="brideDressStyle" class="w-full bg-white border border-slate-300 rounded-md px-3 py-1.5 text-sm focus:ring-2 focus:ring-rose-500 focus:outline-none">
           </div>
           <div>
             <label class="block text-xs font-bold text-slate-500 uppercase mb-1">Bouquet Style</label>
-            <input type="text" id="brideBouquetStyleNotes" class="w-full bg-white border border-slate-300 rounded-md px-3 py-1.5 text-sm focus:ring-2 focus:ring-rose-500 focus:outline-none">
+            <input type="text" id="brideBouquetStyle" class="w-full bg-white border border-slate-300 rounded-md px-3 py-1.5 text-sm focus:ring-2 focus:ring-rose-500 focus:outline-none">
           </div>
           <div>
             <label class="block text-xs font-bold text-slate-500 uppercase mb-1">Ribbon Color</label>
-            <input type="text" id="brideRibbonNotes" class="w-full bg-white border border-slate-300 rounded-md px-3 py-1.5 text-sm focus:ring-2 focus:ring-rose-500 focus:outline-none">
+            <input type="text" id="brideRibbonColor" class="w-full bg-white border border-slate-300 rounded-md px-3 py-1.5 text-sm focus:ring-2 focus:ring-rose-500 focus:outline-none">
           </div>
         </div>
 
@@ -209,15 +204,15 @@
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4 bg-slate-50 p-4 rounded-lg border border-slate-200">
           <div>
             <label class="block text-xs font-bold text-slate-500 uppercase mb-1">Wardrobe Color</label>
-            <input type="text" id="partyWardrobeNotes" class="w-full bg-white border border-slate-300 rounded-md px-3 py-1.5 text-sm focus:ring-2 focus:ring-purple-500 focus:outline-none">
+            <input type="text" id="partyWardrobeColor" class="w-full bg-white border border-slate-300 rounded-md px-3 py-1.5 text-sm focus:ring-2 focus:ring-purple-500 focus:outline-none">
           </div>
           <div>
             <label class="block text-xs font-bold text-slate-500 uppercase mb-1">Bouquet Style</label>
-            <input type="text" id="partyBouquetStyleNotes" class="w-full bg-white border border-slate-300 rounded-md px-3 py-1.5 text-sm focus:ring-2 focus:ring-purple-500 focus:outline-none">
+            <input type="text" id="partyBouquetStyle" class="w-full bg-white border border-slate-300 rounded-md px-3 py-1.5 text-sm focus:ring-2 focus:ring-purple-500 focus:outline-none">
           </div>
           <div>
             <label class="block text-xs font-bold text-slate-500 uppercase mb-1">Ribbon Color</label>
-            <input type="text" id="partyRibbonNotes" class="w-full bg-white border border-slate-300 rounded-md px-3 py-1.5 text-sm focus:ring-2 focus:ring-purple-500 focus:outline-none">
+            <input type="text" id="partyRibbonColor" class="w-full bg-white border border-slate-300 rounded-md px-3 py-1.5 text-sm focus:ring-2 focus:ring-purple-500 focus:outline-none">
           </div>
         </div>
 
@@ -518,18 +513,15 @@
         </div>
       </div>
 
-      <div class="flex items-center gap-2">
-        <button type="button" onclick="openProposalPreview()" class="px-3.5 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 font-medium text-xs rounded-lg transition border border-slate-300 flex items-center gap-1">
-          <i data-lucide="eye" class="w-3.5 h-3.5"></i> Preview
+      <div class="flex items-center gap-3">
+        <button type="button" onclick="openProposalPreview()" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 font-medium text-sm rounded-lg transition border border-slate-300 flex items-center gap-1.5">
+          <i data-lucide="eye" class="w-4 h-4"></i> Preview Proposal
         </button>
-        <button type="button" onclick="saveProposalToStorage()" class="px-3.5 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 font-medium text-xs rounded-lg transition border border-slate-300 flex items-center gap-1">
-          <i data-lucide="save" class="w-3.5 h-3.5"></i> Save Draft
+        <button type="button" onclick="saveProposalToStorage()" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 font-medium text-sm rounded-lg transition border border-slate-300 flex items-center gap-1.5">
+          <i data-lucide="save" class="w-4 h-4"></i> Save Draft
         </button>
-        <button type="button" onclick="uploadToDriveOnly()" id="uploadDriveBtn" class="px-3.5 py-2 bg-slate-800 hover:bg-slate-900 text-white font-semibold text-xs rounded-lg transition flex items-center gap-1">
-          <i data-lucide="cloud-upload" class="w-3.5 h-3.5"></i> Save & Upload to Drive
-        </button>
-        <button type="button" onclick="generateAndSendProposal()" id="sendBtn" class="px-4 py-2 bg-rose-600 hover:bg-rose-700 text-white font-semibold text-xs rounded-lg shadow transition flex items-center gap-1.5">
-          <i data-lucide="send" class="w-3.5 h-3.5"></i> Email Proposal PDF
+        <button type="button" onclick="generateAndSendProposal()" class="px-5 py-2 bg-rose-600 hover:bg-rose-700 text-white font-semibold text-sm rounded-lg shadow transition flex items-center gap-2" id="sendBtn">
+          <i data-lucide="send" class="w-4 h-4"></i> Generate & Email Proposal
         </button>
       </div>
 
@@ -561,11 +553,6 @@
         </button>
       </div>
     </div>
-  </div>
-
-  <!-- HIDDEN OFF-SCREEN PDF RENDER CANVAS (FIXED PRINT WIDTH = 794px) -->
-  <div style="position: absolute; left: -9999px; top: -9999px;">
-    <div id="offscreenPdfCanvas" style="width: 794px; background: #ffffff; padding: 16px; font-family: Arial, sans-serif; box-sizing: border-box;"></div>
   </div>
 
   <!-- FIREBASE & CORE APP SCRIPTS -->
@@ -639,6 +626,7 @@
       addStandardRow('brideTableBody', 'rose', "Bride's Bouquet", '0.00', '0');
       addStandardRow('partyTableBody', 'purple', "Bridesmaid Bouquets", '0.00', '0');
       
+      // Updated Corsages & Boutonnieres Items
       addStandardRow('boutsTableBody', 'amber', "Mother’s Corsage", '39.95', '0');
       addStandardRow('boutsTableBody', 'amber', "Grandmother’s Corsage", '39.95', '0');
       addStandardRow('boutsTableBody', 'amber', "Groom's Boutonniere", '19.95', '0');
@@ -688,17 +676,15 @@
       document.getElementById('receptionVenue').value = p.receptionVenue || '';
       document.getElementById('themeNotes').value = p.themeNotes || '';
       
-      document.getElementById('brideDressNotes').value = p.brideDressNotes || '';
-      document.getElementById('brideBouquetStyleNotes').value = p.brideBouquetStyleNotes || '';
-      document.getElementById('brideRibbonNotes').value = p.brideRibbonNotes || '';
-      
-      document.getElementById('partyWardrobeNotes').value = p.partyWardrobeNotes || '';
-      document.getElementById('partyBouquetStyleNotes').value = p.partyBouquetStyleNotes || '';
-      document.getElementById('partyRibbonNotes').value = p.partyRibbonNotes || '';
-
+      // Designer Notes
+      document.getElementById('brideDressStyle').value = p.brideDressStyle || '';
+      document.getElementById('brideBouquetStyle').value = p.brideBouquetStyle || '';
+      document.getElementById('brideRibbonColor').value = p.brideRibbonColor || '';
+      document.getElementById('partyWardrobeColor').value = p.partyWardrobeColor || '';
+      document.getElementById('partyBouquetStyle').value = p.partyBouquetStyle || '';
+      document.getElementById('partyRibbonColor').value = p.partyRibbonColor || '';
       document.getElementById('ceremonyAltarNotes').value = p.ceremonyAltarNotes || '';
       document.getElementById('ceremonyAisleNotes').value = p.ceremonyAisleNotes || '';
-
       document.getElementById('receptionCenterpieceNotes').value = p.receptionCenterpieceNotes || '';
       document.getElementById('receptionHeadTableNotes').value = p.receptionHeadTableNotes || '';
 
@@ -849,11 +835,9 @@
       document.getElementById('bottomBalanceDue').textContent = balanceDue.toFixed(2);
     };
 
-    window.saveProposalToStorage = async function() {
+    function getProposalPayload(action) {
       calculateTotals();
 
-      const id = currentProposalId || Date.now().toString();
-      
       const savedItems = [];
       const sectionsMap = [
         { tbodyId: 'brideTableBody', section: 'bride' },
@@ -869,68 +853,62 @@
           const name = row.querySelector('input[type="text"]')?.value || '';
           const notes = row.querySelector('textarea')?.value || '';
           const price = parseFloat(row.querySelector('.item-price')?.value) || 0;
-          const total = qty * price;
 
-          if (name || qty > 0) {
+          if (qty > 0 || name) {
             savedItems.push({
               section: section,
               name: name,
               notes: notes,
               qty: qty,
               price: price.toFixed(2),
-              total: total.toFixed(2)
+              total: (qty * price).toFixed(2)
             });
           }
         });
       });
 
-      const itemsSubtotal = parseFloat(document.getElementById('itemsSubtotalDisplay').textContent) || 0;
-      const serviceFee = parseFloat(document.getElementById('serviceFeeDisplay').textContent) || 0;
-      const tax = parseFloat(document.getElementById('taxDisplay').textContent) || 0;
-      const deliveryFee = parseFloat(document.getElementById('deliveryFee').value) || 0;
-      const grandTotal = parseFloat(document.getElementById('grandTotal').textContent) || 0;
-      const paymentsOnAccount = parseFloat(document.getElementById('paymentsOnAccount').value) || 0;
-      const balanceDue = parseFloat(document.getElementById('balanceDueDisplay').textContent) || 0;
-
-      const payload = {
-        id: id,
-        brideName: document.getElementById('brideName').value,
-        groomName: document.getElementById('groomName').value,
-        eventDate: document.getElementById('eventDate').value,
-        bridePhone: document.getElementById('bridePhone').value,
+      return {
+        action: action,
+        recipientEmail: document.getElementById('brideEmail').value,
         brideEmail: document.getElementById('brideEmail').value,
-        appointmentDate: document.getElementById('appointmentDate').value,
-        ceremonyVenue: document.getElementById('ceremonyVenue').value,
-        receptionVenue: document.getElementById('receptionVenue').value,
-        themeNotes: document.getElementById('themeNotes').value,
+        brideName: document.getElementById('brideName').value || 'Unnamed Bride',
+        groomName: document.getElementById('groomName').value || '',
+        bridePhone: document.getElementById('bridePhone').value || '',
+        eventDate: document.getElementById('eventDate').value || '',
+        ceremonyVenue: document.getElementById('ceremonyVenue').value || '',
+        receptionVenue: document.getElementById('receptionVenue').value || '',
+        themeNotes: document.getElementById('themeNotes').value || '',
         
-        brideDressNotes: document.getElementById('brideDressNotes').value,
-        brideBouquetStyleNotes: document.getElementById('brideBouquetStyleNotes').value,
-        brideRibbonNotes: document.getElementById('brideRibbonNotes').value,
+        brideDressStyle: document.getElementById('brideDressStyle').value || '',
+        brideBouquetStyle: document.getElementById('brideBouquetStyle').value || '',
+        brideRibbonColor: document.getElementById('brideRibbonColor').value || '',
+        partyWardrobeColor: document.getElementById('partyWardrobeColor').value || '',
+        partyBouquetStyle: document.getElementById('partyBouquetStyle').value || '',
+        partyRibbonColor: document.getElementById('partyRibbonColor').value || '',
+        ceremonyAltarNotes: document.getElementById('ceremonyAltarNotes').value || '',
+        ceremonyAisleNotes: document.getElementById('ceremonyAisleNotes').value || '',
+        receptionCenterpieceNotes: document.getElementById('receptionCenterpieceNotes').value || '',
+        receptionHeadTableNotes: document.getElementById('receptionHeadTableNotes').value || '',
 
-        partyWardrobeNotes: document.getElementById('partyWardrobeNotes').value,
-        partyBouquetStyleNotes: document.getElementById('partyBouquetStyleNotes').value,
-        partyRibbonNotes: document.getElementById('partyRibbonNotes').value,
-
-        ceremonyAltarNotes: document.getElementById('ceremonyAltarNotes').value,
-        ceremonyAisleNotes: document.getElementById('ceremonyAisleNotes').value,
-
-        receptionCenterpieceNotes: document.getElementById('receptionCenterpieceNotes').value,
-        receptionHeadTableNotes: document.getElementById('receptionHeadTableNotes').value,
-
-        accountNumber: document.getElementById('accountNumber').value,
-        itemsSubtotal: itemsSubtotal.toFixed(2),
-        serviceFee: serviceFee.toFixed(2),
-        tax: tax.toFixed(2),
-        deliveryFee: deliveryFee.toFixed(2),
-        grandTotal: grandTotal.toFixed(2),
-        paymentsOnAccount: paymentsOnAccount.toFixed(2),
-        balanceDue: balanceDue.toFixed(2),
+        accountNumber: document.getElementById('accountNumber').value || '',
+        itemsSubtotal: document.getElementById('itemsSubtotalDisplay').textContent,
+        serviceFee: document.getElementById('serviceFeeDisplay').textContent,
+        tax: document.getElementById('taxDisplay').textContent,
+        deliveryFee: document.getElementById('deliveryFee').value || '0.00',
+        grandTotal: document.getElementById('calcGrandTotalDisplay').textContent,
+        paymentsOnAccount: document.getElementById('paymentsOnAccount').value || '0.00',
+        balanceDue: document.getElementById('balanceDueDisplay').textContent,
         emailSent: currentProposalEmailStatus.emailSent,
         emailSentAt: currentProposalEmailStatus.emailSentAt,
-        items: savedItems,
-        updatedAt: new Date().toISOString()
+        items: savedItems
       };
+    }
+
+    window.saveProposalToStorage = async function() {
+      const id = currentProposalId || Date.now().toString();
+      const payload = getProposalPayload("saveDraft");
+      payload.id = id;
+      payload.updatedAt = new Date().toISOString();
 
       try {
         await setDoc(doc(db, "proposals", id), payload);
@@ -981,8 +959,7 @@
       select.selectedIndex = 0;
     };
 
-    // GENERATES PURE HTML TABLES FOR 100% RELIABLE PDF RENDERING
-    function buildProposalDocumentHtml() {
+    window.openProposalPreview = function() {
       calculateTotals();
 
       const brideName = document.getElementById('brideName').value || 'N/A';
@@ -995,20 +972,6 @@
       const themeNotes = document.getElementById('themeNotes').value || '';
       const accountNumber = document.getElementById('accountNumber').value || 'N/A';
 
-      const brideDressNotes = document.getElementById('brideDressNotes').value || '';
-      const brideBouquetStyleNotes = document.getElementById('brideBouquetStyleNotes').value || '';
-      const brideRibbonNotes = document.getElementById('brideRibbonNotes').value || '';
-
-      const partyWardrobeNotes = document.getElementById('partyWardrobeNotes').value || '';
-      const partyBouquetStyleNotes = document.getElementById('partyBouquetStyleNotes').value || '';
-      const partyRibbonNotes = document.getElementById('partyRibbonNotes').value || '';
-
-      const ceremonyAltarNotes = document.getElementById('ceremonyAltarNotes').value || '';
-      const ceremonyAisleNotes = document.getElementById('ceremonyAisleNotes').value || '';
-
-      const receptionCenterpieceNotes = document.getElementById('receptionCenterpieceNotes').value || '';
-      const receptionHeadTableNotes = document.getElementById('receptionHeadTableNotes').value || '';
-
       const itemsSubtotal = document.getElementById('itemsSubtotalDisplay').textContent;
       const serviceFee = document.getElementById('serviceFeeDisplay').textContent;
       const tax = document.getElementById('taxDisplay').textContent;
@@ -1017,45 +980,61 @@
       const payments = document.getElementById('paymentsDisplay').textContent;
       const balanceDue = document.getElementById('balanceDueDisplay').textContent;
 
+      // Designer Note values
+      const bDress = document.getElementById('brideDressStyle').value;
+      const bStyle = document.getElementById('brideBouquetStyle').value;
+      const bRibbon = document.getElementById('brideRibbonColor').value;
+      const pWardrobe = document.getElementById('partyWardrobeColor').value;
+      const pStyle = document.getElementById('partyBouquetStyle').value;
+      const pRibbon = document.getElementById('partyRibbonColor').value;
+      const cAltar = document.getElementById('ceremonyAltarNotes').value;
+      const cAisle = document.getElementById('ceremonyAisleNotes').value;
+      const rCenter = document.getElementById('receptionCenterpieceNotes').value;
+      const rHead = document.getElementById('receptionHeadTableNotes').value;
+
       const sectionsMap = [
         { 
           id: 'brideTableBody', 
           title: "Bride's Bouquet",
-          notesHtml: (brideDressNotes || brideBouquetStyleNotes || brideRibbonNotes) ? `
-            <div style="font-size: 9px; color: #475569; background-color: #f8fafc; padding: 4px 8px; border-radius: 4px; margin-bottom: 6px; border: 1px solid #e2e8f0;">
-              ${brideDressNotes ? `<strong>Dress:</strong> ${brideDressNotes} &nbsp;|&nbsp; ` : ''}
-              ${brideBouquetStyleNotes ? `<strong>Style:</strong> ${brideBouquetStyleNotes} &nbsp;|&nbsp; ` : ''}
-              ${brideRibbonNotes ? `<strong>Ribbon:</strong> ${brideRibbonNotes}` : ''}
-            </div>` : ''
+          notesHtml: (bDress || bStyle || bRibbon) ? `
+            <div style="font-size: 9.5px; color: #475569; background: #fff1f2; border: 1px solid #fecdd3; border-radius: 4px; padding: 4px 8px; margin-bottom: 6px;">
+              ${bDress ? `<strong>Dress:</strong> ${bDress} ` : ''}
+              ${bStyle ? `<strong>Bouquet Style:</strong> ${bStyle} ` : ''}
+              ${bRibbon ? `<strong>Ribbon:</strong> ${bRibbon}` : ''}
+            </div>
+          ` : ''
         },
         { 
           id: 'partyTableBody', 
           title: "Bridal Party",
-          notesHtml: (partyWardrobeNotes || partyBouquetStyleNotes || partyRibbonNotes) ? `
-            <div style="font-size: 9px; color: #475569; background-color: #f8fafc; padding: 4px 8px; border-radius: 4px; margin-bottom: 6px; border: 1px solid #e2e8f0;">
-              ${partyWardrobeNotes ? `<strong>Wardrobe:</strong> ${partyWardrobeNotes} &nbsp;|&nbsp; ` : ''}
-              ${partyBouquetStyleNotes ? `<strong>Style:</strong> ${partyBouquetStyleNotes} &nbsp;|&nbsp; ` : ''}
-              ${partyRibbonNotes ? `<strong>Ribbon:</strong> ${partyRibbonNotes}` : ''}
-            </div>` : ''
+          notesHtml: (pWardrobe || pStyle || pRibbon) ? `
+            <div style="font-size: 9.5px; color: #475569; background: #f3e8ff; border: 1px solid #e9d5ff; border-radius: 4px; padding: 4px 8px; margin-bottom: 6px;">
+              ${pWardrobe ? `<strong>Wardrobe:</strong> ${pWardrobe} ` : ''}
+              ${pStyle ? `<strong>Bouquet Style:</strong> ${pStyle} ` : ''}
+              ${pRibbon ? `<strong>Ribbon:</strong> ${pRibbon}` : ''}
+            </div>
+          ` : ''
         },
         { id: 'boutsTableBody', title: "Corsages & Boutonnieres", notesHtml: '' },
         { 
           id: 'ceremonyTableBody', 
           title: "Ceremony Florals & Rentals",
-          notesHtml: (ceremonyAltarNotes || ceremonyAisleNotes) ? `
-            <div style="font-size: 9px; color: #475569; background-color: #f8fafc; padding: 4px 8px; border-radius: 4px; margin-bottom: 6px; border: 1px solid #e2e8f0;">
-              ${ceremonyAltarNotes ? `<strong>Altar:</strong> ${ceremonyAltarNotes} &nbsp;|&nbsp; ` : ''}
-              ${ceremonyAisleNotes ? `<strong>Aisle/Entryway:</strong> ${ceremonyAisleNotes}` : ''}
-            </div>` : ''
+          notesHtml: (cAltar || cAisle) ? `
+            <div style="font-size: 9.5px; color: #475569; background: #ecfdf5; border: 1px solid #a7f3d0; border-radius: 4px; padding: 4px 8px; margin-bottom: 6px;">
+              ${cAltar ? `<strong>Altar Flowers:</strong> ${cAltar} ` : ''}
+              ${cAisle ? `<strong>Aisle/Entry Notes:</strong> ${cAisle}` : ''}
+            </div>
+          ` : ''
         },
         { 
           id: 'receptionTableBody', 
           title: "Reception Florals & Rentals",
-          notesHtml: (receptionCenterpieceNotes || receptionHeadTableNotes) ? `
-            <div style="font-size: 9px; color: #475569; background-color: #f8fafc; padding: 4px 8px; border-radius: 4px; margin-bottom: 6px; border: 1px solid #e2e8f0;">
-              ${receptionCenterpieceNotes ? `<strong>Centerpiece Vibe:</strong> ${receptionCenterpieceNotes} &nbsp;|&nbsp; ` : ''}
-              ${receptionHeadTableNotes ? `<strong>Head Table Notes:</strong> ${receptionHeadTableNotes}` : ''}
-            </div>` : ''
+          notesHtml: (rCenter || rHead) ? `
+            <div style="font-size: 9.5px; color: #475569; background: #eff6ff; border: 1px solid #bfdbfe; border-radius: 4px; padding: 4px 8px; margin-bottom: 6px;">
+              ${rCenter ? `<strong>Centerpiece Vibe:</strong> ${rCenter} ` : ''}
+              ${rHead ? `<strong>Head/Sweetheart Table:</strong> ${rHead}` : ''}
+            </div>
+          ` : ''
         }
       ];
 
@@ -1072,83 +1051,77 @@
           const price = parseFloat(row.querySelector('.item-price')?.value) || 0;
           const total = (qty * price).toFixed(2);
 
-          if (qty > 0 || name) {
+          if (qty > 0) {
             sectionRowsHtml += `
               <tr style="border-bottom: 1px solid #f1f5f9;">
-                <td style="padding: 5px 6px; width: 55%; vertical-align: top;">
-                  <div style="font-weight: 700; font-size: 10px; color: #0f172a;">${name || 'Item'}</div>
-                  ${notes ? `<div style="font-size: 9px; color: #64748b; font-style: italic; margin-top: 1px;">${notes}</div>` : ''}
+                <td style="padding: 4px 6px; width: 55%;">
+                  <div style="font-weight: 600; font-size: 10.5px; color: #0f172a;">${name || 'Item'}</div>
+                  ${notes ? `<div style="font-size: 9.5px; color: #64748b; font-style: italic; margin-top: 1px;">${notes}</div>` : ''}
                 </td>
-                <td style="padding: 5px 6px; text-align: center; width: 12%; font-size: 10px; vertical-align: top;">${qty}</td>
-                <td style="padding: 5px 6px; text-align: right; width: 15%; font-size: 10px; vertical-align: top;">$${price.toFixed(2)}</td>
-                <td style="padding: 5px 6px; text-align: right; width: 18%; font-size: 10px; font-weight: 700; color: #0f172a; vertical-align: top;">$${total}</td>
+                <td style="padding: 4px 6px; text-align: center; width: 15%; font-size: 10.5px;">${qty}</td>
+                <td style="padding: 4px 6px; text-align: right; width: 15%; font-size: 10.5px;">$${price.toFixed(2)}</td>
+                <td style="padding: 4px 6px; text-align: right; width: 15%; font-size: 10.5px; font-weight: 700; color: #0f172a;">$${total}</td>
               </tr>
             `;
           }
         });
 
-        if (sectionRowsHtml) {
+        if (sectionRowsHtml || sec.notesHtml) {
           itemizedHtml += `
-            <div style="margin-bottom: 12px; page-break-inside: avoid;">
-              <div style="font-size: 10px; font-weight: 800; color: #881337; text-transform: uppercase; background-color: #ffe4e6; padding: 4px 8px; border-radius: 4px; margin-bottom: 4px;">
+            <div style="margin-bottom: 10px; page-break-inside: avoid;">
+              <div style="font-size: 10px; font-weight: 700; color: #881337; text-transform: uppercase; background-color: #ffe4e6; padding: 3px 6px; border-radius: 4px; margin-bottom: 4px;">
                 ${sec.title}
               </div>
               ${sec.notesHtml}
-              <table class="pdf-table" style="width: 100%; border-collapse: collapse; text-align: left;">
-                <thead>
-                  <tr style="border-bottom: 1.5px solid #cbd5e1; font-size: 8.5px; text-transform: uppercase; color: #64748b;">
-                    <th style="padding: 3px 6px; width: 55%;">Description</th>
-                    <th style="padding: 3px 6px; text-align: center; width: 12%;">QTY</th>
-                    <th style="padding: 3px 6px; text-align: right; width: 15%;">Price</th>
-                    <th style="padding: 3px 6px; text-align: right; width: 18%;">Total</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  ${sectionRowsHtml}
-                </tbody>
-              </table>
+              ${sectionRowsHtml ? `
+                <table style="width: 100%; border-collapse: collapse; text-align: left;">
+                  <thead>
+                    <tr style="border-bottom: 1px solid #cbd5e1; font-size: 8.5px; text-transform: uppercase; color: #64748b;">
+                      <th style="padding: 2px 6px; width: 55%;">Description</th>
+                      <th style="padding: 2px 6px; text-align: center; width: 15%;">QTY</th>
+                      <th style="padding: 2px 6px; text-align: right; width: 15%;">Price</th>
+                      <th style="padding: 2px 6px; text-align: right; width: 15%;">Total</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    ${sectionRowsHtml}
+                  </tbody>
+                </table>
+              ` : ''}
             </div>
           `;
         }
       });
 
-      return `
-        <div style="font-family: Arial, sans-serif; color: #1e293b; width: 100%; box-sizing: border-box;">
+      document.getElementById('previewContent').innerHTML = `
+        <div id="pdfPrintContainer" style="font-family: Arial, sans-serif; color: #1e293b; padding: 8px; max-width: 750px; margin: 0 auto; background: #ffffff;">
           
-          <!-- BRAND HEADER TABLE -->
-          <table style="width: 100%; border-collapse: collapse; border-bottom: 2px solid #881337; padding-bottom: 8px; margin-bottom: 12px;">
-            <tr>
-              <td style="vertical-align: middle;">
-                <table style="border-collapse: collapse;">
-                  <tr>
-                    <td style="padding-right: 10px; vertical-align: middle;">
-                      <img src="logo.png" alt="Vogt's Flowers Logo" style="height: 44px; width: auto;" onerror="this.style.display='none'">
-                    </td>
-                    <td style="vertical-align: middle;">
-                      <h1 style="font-size: 18px; font-weight: 800; color: #881337; margin: 0; line-height: 1.1;">Vogt's Flowers & Gifts</h1>
-                      <p style="font-size: 9.5px; color: #64748b; margin: 2px 0 0 0;">Official Wedding Floral Proposal ${accountNumber !== 'N/A' ? '• Account #' + accountNumber : ''}</p>
-                    </td>
-                  </tr>
-                </table>
-              </td>
-              <td style="text-align: right; vertical-align: middle; font-size: 9.5px; color: #64748b;">
-                <p style="margin: 0; font-weight: bold; color: #881337;">events@vogtsflowers.com</p>
-                <p style="margin: 1px 0 0 0;">www.vogtsflowers.com</p>
-              </td>
-            </tr>
-          </table>
+          <!-- BRAND HEADER WITH LOGO -->
+          <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #881337; padding-bottom: 8px; margin-bottom: 10px;">
+            <div style="display: flex; align-items: center; gap: 10px;">
+              <img src="logo.png" alt="Vogt's Flowers Logo" style="height: 42px; width: auto; object-fit: contain;" onerror="this.style.display='none'">
+              <div>
+                <h1 style="font-size: 18px; font-weight: 800; color: #881337; margin: 0; line-height: 1.1;">Vogt's Flowers & Gifts</h1>
+                <p style="font-size: 9.5px; color: #64748b; margin: 2px 0 0 0;">Official Wedding Floral Proposal ${accountNumber !== 'N/A' ? '• Account #' + accountNumber : ''}</p>
+              </div>
+            </div>
+            <div style="text-align: right; font-size: 9.5px; color: #64748b;">
+              <p style="margin: 0; font-weight: bold; color: #881337;">events@vogtsflowers.com</p>
+              <p style="margin: 1px 0 0 0;">www.vogtsflowers.com</p>
+            </div>
+          </div>
 
-          <!-- CLIENT & LOGISTICS TABLE -->
-          <table style="width: 100%; background-color: #f8fafc; border: 1px solid #e2e8f0; border-radius: 6px; margin-bottom: 12px; font-size: 10px; border-collapse: collapse;">
+          <!-- CLIENT & LOGISTICS GRID -->
+          <table style="width: 100%; background-color: #f8fafc; border: 1px solid #e2e8f0; border-radius: 6px; padding: 8px; margin-bottom: 10px; font-size: 10.5px;">
             <tr>
-              <td style="vertical-align: top; width: 50%; padding: 10px;">
-                <p style="margin: 0 0 3px 0; font-weight: bold; color: #881337; text-transform: uppercase; font-size: 8.5px;">Client Details</p>
+              <td style="vertical-align: top; width: 50%; padding-right: 8px;">
+                <p style="margin: 0 0 2px 0; font-weight: bold; color: #881337; text-transform: uppercase; font-size: 8.5px;">Client Details</p>
                 <p style="margin: 0 0 2px 0; font-weight: bold; font-size: 12px; color: #0f172a;">${brideName} ${groomName ? '& ' + groomName : ''}</p>
                 <p style="margin: 0; color: #475569;">Phone: ${bridePhone}</p>
                 <p style="margin: 0; color: #475569;">Email: ${brideEmail}</p>
               </td>
-              <td style="vertical-align: top; width: 50%; padding: 10px; border-left: 1px solid #e2e8f0;">
-                <p style="margin: 0 0 3px 0; font-weight: bold; color: #881337; text-transform: uppercase; font-size: 8.5px;">Event Logistics</p>
+              <td style="vertical-align: top; width: 50%; padding-left: 8px;">
+                <p style="margin: 0 0 2px 0; font-weight: bold; color: #881337; text-transform: uppercase; font-size: 8.5px;">Event Logistics</p>
                 <p style="margin: 0 0 2px 0; font-weight: bold; color: #1e293b;">Event Date: ${eventDate}</p>
                 <p style="margin: 0; color: #475569;">Ceremony: ${ceremonyVenue}</p>
                 <p style="margin: 0; color: #475569;">Reception: ${receptionVenue}</p>
@@ -1156,61 +1129,52 @@
             </tr>
             ${themeNotes ? `
               <tr>
-                <td colspan="2" style="border-top: 1px solid #e2e8f0; padding: 8px 10px; font-size: 9.5px; color: #475569; background-color: #f1f5f9;">
-                  <strong>Color Palette / Vibe Notes:</strong> ${themeNotes}
+                <td colspan="2" style="border-top: 1px solid #e2e8f0; margin-top: 6px; padding-top: 4px; font-size: 9.5px; color: #475569;">
+                  <strong>Color Palette / Vibe:</strong> ${themeNotes}
                 </td>
               </tr>
             ` : ''}
           </table>
 
-          <!-- ITEMIZED SECTIONS -->
+          <!-- ITEMIZED SECTIONS WITH DESIGNER NOTES -->
           <div>
             ${itemizedHtml || '<p style="font-size: 10.5px; color: #94a3b8; font-style: italic;">No line items with QTY > 0 selected.</p>'}
           </div>
 
-          <!-- FINANCIAL BREAKDOWN FOOTER TABLE -->
-          <div style="page-break-inside: avoid; border-top: 2px solid #0f172a; margin-top: 14px; padding-top: 10px;">
-            <table style="width: 100%; border-collapse: collapse;">
-              <tr>
-                <td style="vertical-align: top; width: 55%; padding-right: 12px;">
-                  <p style="font-size: 8.5px; color: #64748b; margin: 0; line-height: 1.4;">
-                    * Prices are estimated based on initial consultation notes and subject to seasonal stem availability. A non-refundable deposit is required to hold your date.
-                  </p>
-                </td>
-                <td style="vertical-align: top; width: 45%;">
-                  <table style="width: 100%; font-size: 10px; border-collapse: collapse; text-align: right;">
-                    <tr><td style="padding: 2px 6px; color: #64748b;">Items Subtotal:</td><td style="padding: 2px 6px; font-weight: bold; width: 80px;">$${itemsSubtotal}</td></tr>
-                    <tr><td style="padding: 2px 6px; color: #64748b;">Service Fee (10%):</td><td style="padding: 2px 6px; font-weight: bold;">$${serviceFee}</td></tr>
-                    <tr><td style="padding: 2px 6px; color: #64748b;">MI Sales Tax (6%):</td><td style="padding: 2px 6px; font-weight: bold;">$${tax}</td></tr>
-                    <tr><td style="padding: 2px 6px; color: #64748b;">Delivery Fee:</td><td style="padding: 2px 6px; font-weight: bold;">$${delivery}</td></tr>
-                    <tr style="border-top: 1px solid #cbd5e1; border-bottom: 1px solid #cbd5e1;"><td style="padding: 4px 6px; font-weight: bold; color: #0f172a;">Grand Total:</td><td style="padding: 4px 6px; font-weight: 800; font-size: 11px;">$${grandTotal}</td></tr>
-                    <tr><td style="padding: 2px 6px; color: #059669; font-weight: 600;">Payments on Account:</td><td style="padding: 2px 6px; color: #059669; font-weight: bold;">-$${payments}</td></tr>
-                    <tr><td style="padding: 4px 6px; font-weight: 800; color: #e11d48; font-size: 12px;">Balance Due:</td><td style="padding: 4px 6px; font-weight: 900; color: #e11d48; font-size: 13px;">$${balanceDue}</td></tr>
-                  </table>
-                </td>
-              </tr>
-            </table>
-
-            <!-- STORE LOCATIONS -->
-            <div style="background-color: #f8fafc; border: 1px solid #e2e8f0; border-radius: 6px; padding: 6px 10px; font-size: 8.5px; color: #475569; margin-top: 12px;">
-              <p style="margin: 0 0 3px 0; font-weight: bold; color: #881337; text-transform: uppercase; text-align: center; font-size: 8px;">Vogt's Flowers Locations</p>
-              <table style="width: 100%; border-collapse: collapse; border-top: 1px solid #e2e8f0; padding-top: 4px; text-align: center;">
-                <tr>
-                  <td><strong>Flint:</strong> 810-238-6487</td>
-                  <td><strong>Grand Blanc:</strong> 810-694-0008</td>
-                  <td><strong>Davison:</strong> 810-653-3700</td>
-                  <td><strong>Flushing:</strong> 810-659-5741</td>
-                </tr>
+          <!-- FINANCIAL SUMMARY & BREAKDOWN FOOTER -->
+          <div style="page-break-inside: avoid; border-top: 2px solid #0f172a; margin-top: 12px; padding-top: 8px;">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 10px;">
+              <p style="font-size: 8.5px; color: #64748b; margin: 0; max-width: 380px; line-height: 1.3;">
+                * Prices are estimated based on initial consultation notes and subject to seasonal stem availability. A non-refundable deposit is required to hold your date.
+              </p>
+              
+              <!-- Financial Table Calculation -->
+              <table style="font-size: 10px; border-collapse: collapse; text-align: right; min-width: 200px;">
+                <tr><td style="padding: 1px 6px; color: #64748b;">Items Subtotal:</td><td style="padding: 1px 6px; font-weight: bold;">$${itemsSubtotal}</td></tr>
+                <tr><td style="padding: 1px 6px; color: #64748b;">Service Fee (10%):</td><td style="padding: 1px 6px; font-weight: bold;">$${serviceFee}</td></tr>
+                <tr><td style="padding: 1px 6px; color: #64748b;">MI Sales Tax (6%):</td><td style="padding: 1px 6px; font-weight: bold;">$${tax}</td></tr>
+                <tr><td style="padding: 1px 6px; color: #64748b;">Delivery Fee:</td><td style="padding: 1px 6px; font-weight: bold;">$${delivery}</td></tr>
+                <tr style="border-top: 1px solid #cbd5e1; border-bottom: 1px solid #cbd5e1;"><td style="padding: 3px 6px; font-weight: bold; color: #0f172a;">Grand Total:</td><td style="padding: 3px 6px; font-weight: 800; font-size: 11px;">$${grandTotal}</td></tr>
+                <tr><td style="padding: 2px 6px; color: #059669; font-weight: 600;">Payments on Account:</td><td style="padding: 2px 6px; color: #059669; font-weight: bold;">-$${payments}</td></tr>
+                <tr><td style="padding: 3px 6px; font-weight: 800; color: #e11d48; font-size: 12px;">Balance Due:</td><td style="padding: 3px 6px; font-weight: 900; color: #e11d48; font-size: 13px;">$${balanceDue}</td></tr>
               </table>
+            </div>
+
+            <!-- ALL LOCATION CONTACT INFORMATION -->
+            <div style="background-color: #f8fafc; border: 1px solid #e2e8f0; border-radius: 6px; padding: 6px 10px; font-size: 8.5px; color: #475569;">
+              <p style="margin: 0 0 3px 0; font-weight: bold; color: #881337; text-transform: uppercase; text-align: center; font-size: 8px;">Vogt's Flowers Locations</p>
+              <div style="display: flex; justify-content: space-between; gap: 4px; border-top: 1px solid #e2e8f0; padding-top: 4px;">
+                <div><strong>Flint:</strong> 810-238-6487</div>
+                <div><strong>Grand Blanc:</strong> 810-694-0008</div>
+                <div><strong>Davison:</strong> 810-653-3700</div>
+                <div><strong>Flushing:</strong> 810-659-5741</div>
+              </div>
             </div>
           </div>
 
         </div>
       `;
-    }
 
-    window.openProposalPreview = function() {
-      document.getElementById('previewContent').innerHTML = buildProposalDocumentHtml();
       document.getElementById('previewModal').classList.remove('hidden');
     };
 
@@ -1218,76 +1182,11 @@
       document.getElementById('previewModal').classList.add('hidden');
     };
 
-    // HIGH-RES OFF-SCREEN PDF GENERATOR
-    async function generatePdfBase64() {
-      const canvas = document.getElementById('offscreenPdfCanvas');
-      canvas.innerHTML = buildProposalDocumentHtml();
-
-      // Render delay so images & fonts finish painting
-      await new Promise(resolve => setTimeout(resolve, 300));
-
-      const brideName = document.getElementById('brideName').value || 'Unnamed Bride';
-      const eventDate = document.getElementById('eventDate').value || 'Date TBD';
-
-      const opt = {
-        margin:       [0.25, 0.25, 0.25, 0.25],
-        filename:     `Proposal - ${brideName} (${eventDate}).pdf`,
-        image:        { type: 'jpeg', quality: 0.98 },
-        html2canvas:  { scale: 2, useCORS: true, logging: false, windowWidth: 800 },
-        jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
-      };
-
-      const dataUri = await html2pdf().set(opt).from(canvas).outputPdf('datauristring');
-      return {
-        pdfBase64: dataUri.split(',')[1],
-        fileName: `Proposal - ${brideName} (${eventDate}).pdf`
-      };
-    }
-
-    // UPLOAD TO DRIVE ONLY
-    window.uploadToDriveOnly = async function() {
-      const btn = document.getElementById('uploadDriveBtn');
-      const brideName = document.getElementById('brideName').value || 'Unnamed Bride';
-      const eventDate = document.getElementById('eventDate').value || 'Date TBD';
-
-      btn.disabled = true;
-      btn.innerHTML = '<i data-lucide="loader-2" class="w-3.5 h-3.5 animate-spin"></i> Uploading PDF...';
-      lucide.createIcons();
-
-      try {
-        await saveProposalToStorage();
-        const { pdfBase64, fileName } = await generatePdfBase64();
-
-        const formData = new FormData();
-        formData.append('payload', JSON.stringify({
-          action: "uploadOnly",
-          brideName: brideName,
-          eventDate: eventDate,
-          fileName: fileName,
-          pdfBase64: pdfBase64
-        }));
-
-        await fetch(APPS_SCRIPT_URL, { method: "POST", body: formData });
-        alert(`Proposal PDF successfully uploaded to Google Drive!`);
-
-      } catch (err) {
-        alert("Saved to cloud!");
-      } finally {
-        btn.disabled = false;
-        btn.innerHTML = '<i data-lucide="cloud-upload" class="w-3.5 h-3.5"></i> Save & Upload to Drive';
-        lucide.createIcons();
-      }
-    };
-
-    // SAVE, UPLOAD & EMAIL BRIDE
     window.generateAndSendProposal = async function() {
       const sendBtn = document.getElementById('sendBtn');
       const brideName = document.getElementById('brideName').value || 'Unnamed Bride';
       const brideEmail = document.getElementById('brideEmail').value;
       const eventDate = document.getElementById('eventDate').value || 'Date TBD';
-      
-      calculateTotals();
-      const grandTotal = document.getElementById('calcGrandTotalDisplay').textContent;
 
       if (!brideEmail) {
         alert("Please enter the Bride's Email Address before sending!");
@@ -1295,7 +1194,7 @@
       }
 
       sendBtn.disabled = true;
-      sendBtn.innerHTML = '<i data-lucide="loader-2" class="w-3.5 h-3.5 animate-spin"></i> Emailing PDF...';
+      sendBtn.innerHTML = '<i data-lucide="loader-2" class="w-4 h-4 animate-spin"></i> Generating PDF & Emailing...';
       lucide.createIcons();
 
       try {
@@ -1304,30 +1203,27 @@
           emailSentAt: new Date().toISOString()
         };
 
+        const payload = getProposalPayload("sendEmail");
+        
         await saveProposalToStorage();
-        const { pdfBase64, fileName } = await generatePdfBase64();
 
         const formData = new FormData();
-        formData.append('payload', JSON.stringify({
-          action: "sendEmail",
-          recipientEmail: brideEmail,
-          brideName: brideName,
-          eventDate: eventDate,
-          grandTotal: grandTotal,
-          fileName: fileName,
-          pdfBase64: pdfBase64
-        }));
+        formData.append('payload', JSON.stringify(payload));
 
-        await fetch(APPS_SCRIPT_URL, { method: "POST", body: formData });
+        await fetch(APPS_SCRIPT_URL, {
+          method: "POST",
+          body: formData
+        });
 
-        alert(`Proposal dispatched! The PDF was saved to Google Drive and emailed to ${brideEmail}.`);
+        alert(`Proposal generated! The PDF was saved to Drive and emailed to ${brideEmail}.`);
         updateEmailBadgeHeader();
+        closeProposalPreview();
 
       } catch (err) {
         alert("Proposal generated and saved!");
       } finally {
         sendBtn.disabled = false;
-        sendBtn.innerHTML = '<i data-lucide="send" class="w-3.5 h-3.5"></i> Email Proposal PDF';
+        sendBtn.innerHTML = '<i data-lucide="send" class="w-4 h-4"></i> Generate & Email Proposal';
         lucide.createIcons();
       }
     };
