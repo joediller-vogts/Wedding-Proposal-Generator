@@ -933,16 +933,13 @@
         const payload = getProposalPayload("uploadDriveOnly");
         await saveProposalToStorage();
 
-        const formData = new FormData();
-        formData.append('payload', JSON.stringify(payload));
-
         await fetch(APPS_SCRIPT_URL, {
           method: "POST",
-          mode: "no-cors",
-          body: formData
+          headers: { "Content-Type": "text/plain;charset=utf-8" },
+          body: JSON.stringify(payload)
         });
 
-        alert(`Proposal request for ${brideName} sent to Google Drive! Check your Google Drive folder in a few seconds.`);
+        alert(`Proposal request for ${brideName} sent to Google Drive! Check your Google Drive folder.`);
 
       } catch (err) {
         alert("Draft saved to cloud!");
@@ -976,13 +973,10 @@
         const payload = getProposalPayload("sendEmail");
         await saveProposalToStorage();
 
-        const formData = new FormData();
-        formData.append('payload', JSON.stringify(payload));
-
         await fetch(APPS_SCRIPT_URL, {
           method: "POST",
-          mode: "no-cors",
-          body: formData
+          headers: { "Content-Type": "text/plain;charset=utf-8" },
+          body: JSON.stringify(payload)
         });
 
         alert(`Proposal request sent! Google is generating the PDF, saving it to Drive, and emailing ${brideEmail}.`);
