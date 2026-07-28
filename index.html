@@ -799,21 +799,38 @@
     window.calculateTotals = function() {
       let itemsSubtotal = 0;
       
-      document.querySelectorAll('#editorView section').forEach((section, index) => {
-        if (index < 5) {
-          let sectionTotal = 0;
-          section.querySelectorAll('tbody tr').forEach(row => {
-            const qty = parseFloat(row.querySelector('.item-qty')?.value) || 0;
-            const price = parseFloat(row.querySelector('.item-price')?.value) || 0;
-            const total = qty * price;
-            const totalEl = row.querySelector('.item-total');
-            if (totalEl) totalEl.textContent = total.toFixed(2);
-            sectionTotal += total;
-          });
-          const sectionSubtotalEl = section.querySelector('.section-subtotal');
+      const sectionsMap = [
+        'brideTableBody',
+        'partyTableBody',
+        'boutsTableBody',
+        'ceremonyTableBody',
+        'receptionTableBody'
+      ];
+
+      sectionsMap.forEach((tbodyId) => {
+        const tbody = document.getElementById(tbodyId);
+        if (!tbody) return;
+
+        let sectionTotal = 0;
+        tbody.querySelectorAll('tr').forEach(row => {
+          const qty = parseFloat(row.querySelector('.item-qty')?.value) || 0;
+          const price = parseFloat(row.querySelector('.item-price')?.value) || 0;
+          const total = qty * price;
+          
+          const totalEl = row.querySelector('.item-total');
+          if (totalEl) totalEl.textContent = total.toFixed(2);
+          
+          sectionTotal += total;
+        });
+
+        // Update section header subtotal
+        const sectionCard = tbody.closest('section');
+        if (sectionCard) {
+          const sectionSubtotalEl = sectionCard.querySelector('.section-subtotal');
           if (sectionSubtotalEl) sectionSubtotalEl.textContent = sectionTotal.toFixed(2);
-          itemsSubtotal += sectionTotal;
         }
+
+        itemsSubtotal += sectionTotal;
       });
 
       const serviceFee = itemsSubtotal * 0.10;
