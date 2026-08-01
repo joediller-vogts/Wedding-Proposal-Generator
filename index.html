@@ -430,7 +430,148 @@
       </div>
     </section>
 
-    <!-- SECTION 7: SERVICE & DELIVERY / FINANCIAL SUMMARY -->
+    <!-- SECTION 7: MARKET FLOWERS (NEW) -->
+    <section class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+      <div class="bg-teal-50/70 border-b border-teal-100 px-6 py-4 flex items-center justify-between">
+        <h2 class="text-lg font-bold text-teal-900 flex items-center gap-2">
+          <i data-lucide="flower-2" class="w-5 h-5 text-teal-600"></i> Market Flowers
+        </h2>
+        <span class="text-sm font-semibold text-teal-800 bg-teal-100/80 px-3 py-1 rounded-full">
+          Subtotal: $<span class="section-subtotal">0.00</span>
+        </span>
+      </div>
+
+      <div class="p-6 space-y-6">
+        <div class="bg-teal-50/50 p-4 rounded-lg border border-teal-100 flex flex-col md:flex-row items-md-center justify-between gap-4">
+          <div class="flex-1">
+            <label class="block text-xs font-bold text-teal-900 uppercase mb-1">Select Market Flower or Green (Per Stem / Bunch / Case)</label>
+            <select id="marketFlowerPresetSelect" class="w-full bg-white border border-teal-200 rounded-md px-3 py-2 text-sm focus:ring-2 focus:ring-teal-500 focus:outline-none">
+              <option value="" disabled selected>-- Select a flower or green to add --</option>
+              
+              <optgroup label="Fresh Flowers">
+                <option value="Alstro|20.00|BN">Alstro ($20.00 / Bunch)</option>
+                <option value="Amaranthus|25.00|BN">Amaranthus ($25.00 / Bunch)</option>
+                <option value="Anemone|6.00|ST">Anemone ($6.00 / Stem)</option>
+                <option value="Aster, Monte|15.00|BN">Aster, Monte ($15.00 / Bunch)</option>
+                <option value="Aster, Solidago|15.00|BN">Aster, Solidago ($15.00 / Bunch)</option>
+                <option value="Astilbe|8.00|ST">Astilbe ($8.00 / Stem)</option>
+                <option value="Bells of Ireland|20.00|BN">Bells of Ireland ($20.00 / Bunch)</option>
+                <option value="Birds of Paridise|6.00|ST">Birds of Paridise ($6.00 / Stem)</option>
+                <option value="Bupleurum|15.00|BN">Bupleurum ($15.00 / Bunch)</option>
+                <option value="Calla Lily|5.00|ST">Calla Lily ($5.00 / Stem)</option>
+                <option value="Calla Lily, Mini|30.00|BN">Calla Lily, Mini ($30.00 / Bunch)</option>
+                <option value="Carn|1.50|ST">Carnation ($1.50 / Stem)</option>
+                <option value="Carn, Mini|8.00|BN">Carnation, Mini ($8.00 / Bunch)</option>
+                <option value="Celosia|20.00|BN">Celosia ($20.00 / Bunch)</option>
+                <option value="Craspedia|2.00|ST">Craspedia ($2.00 / Stem)</option>
+                <option value="Dahlia|10.00|ST">Dahlia ($10.00 / Stem)</option>
+                <option value="David Austin Roses|12.00|ST">David Austin Roses ($12.00 / Stem)</option>
+                <option value="Delphinium|20.00|BN">Delphinium ($20.00 / Bunch)</option>
+                <option value="Dusty Miller|20.00|BN">Dusty Miller ($20.00 / Bunch)</option>
+                <option value="Garden Rose|6.00|ST">Garden Rose ($6.00 / Stem)</option>
+                <option value="Gerb|3.50|ST">Gerbera ($3.50 / Stem)</option>
+                <option value="Gerb, Mini|2.50|ST">Gerbera, Mini ($2.50 / Stem)</option>
+                <option value="Gladiolus|20.00|BN">Gladiolus ($20.00 / Bunch)</option>
+                <option value="Gyp|15.00|BN">Gyp ($15.00 / Bunch)</option>
+                <option value="Hydrangea|5.00|ST">Hydrangea ($5.00 / Stem)</option>
+                <option value="Hydrangea - Blue|5.00|ST">Hydrangea - Blue ($5.00 / Stem)</option>
+                <option value="Hydrangea - Green|5.00|ST">Hydrangea - Green ($5.00 / Stem)</option>
+                <option value="Hydrangea - Purple|8.00|ST">Hydrangea - Purple ($8.00 / Stem)</option>
+                <option value="Hydrangea - White|5.00|ST">Hydrangea - White ($5.00 / Stem)</option>
+                <option value="Hypericum|15.00|BN">Hypericum ($15.00 / Bunch)</option>
+                <option value="Iris|19.00|BN">Iris ($19.00 / Bunch)</option>
+                <option value="Kale|4.00|ST">Kale ($4.00 / Stem)</option>
+                <option value="Kangaroo Paw|15.00|BN">Kangaroo Paw ($15.00 / Bunch)</option>
+                <option value="Larkspur|25.00|BN">Larkspur ($25.00 / Bunch)</option>
+                <option value="Lavender|25.00|BN">Lavender ($25.00 / Bunch)</option>
+                <option value="Leucadendron|18.00|BN">Leucadendron ($18.00 / Bunch)</option>
+                <option value="Liatris|2.00|ST">Liatris ($2.00 / Stem)</option>
+                <option value="Lily, Asiatic|30.00|BN">Lily, Asiatic ($30.00 / Bunch)</option>
+                <option value="Lily, Oriental|40.00|BN">Lily, Oriental ($40.00 / Bunch)</option>
+                <option value="Limonium|15.00|BN">Limonium ($15.00 / Bunch)</option>
+                <option value="Lisianthus|10.00|ST">Lisianthus ($10.00 / Stem)</option>
+                <option value="Mum, Fuji|20.00|BN">Mum, Fuji ($20.00 / Bunch)</option>
+                <option value="Orchid, Cymbidium|6.00|Bloom">Orchid, Cymbidium ($6.00 / Bloom)</option>
+                <option value="Orchid, Dendro|10.00|ST">Orchid, Dendro ($10.00 / Stem)</option>
+                <option value="Orlaya / White Lace Flower|5.00|ST">Orlaya / White Lace Flower ($5.00 / Stem)</option>
+                <option value="Peony|15.00|ST">Peony ($15.00 / Stem)</option>
+                <option value="Pomp|7.50|BN">Pomp ($7.50 / Bunch)</option>
+                <option value="Protea|8.00|ST">Protea ($8.00 / Stem)</option>
+                <option value="Queen Ann's Lace|20.00|BN">Queen Ann's Lace ($20.00 / Bunch)</option>
+                <option value="Ranunculus|6.00|ST">Ranunculus ($6.00 / Stem)</option>
+                <option value="Rose 60cm|3.00|ST">Rose 60cm ($3.00 / Stem)</option>
+                <option value="Rose 70cm|4.00|ST">Rose 70cm ($4.00 / Stem)</option>
+                <option value="Scabiosa|6.00|ST">Scabiosa ($6.00 / Stem)</option>
+                <option value="Snaps|25.00|BN">Snaps ($25.00 / Bunch)</option>
+                <option value="Spray Rose|20.00|BN">Spray Rose ($20.00 / Bunch)</option>
+                <option value="Statice|18.00|BN">Statice ($18.00 / Bunch)</option>
+                <option value="Stephanotis|50.00|CS">Stephanotis ($50.00 / Case)</option>
+                <option value="Stock|25.00|BN">Stock ($25.00 / Bunch)</option>
+                <option value="Sunflower|3.00|ST">Sunflower ($3.00 / Stem)</option>
+                <option value="Thistle|15.00|BN">Thistle ($15.00 / Bunch)</option>
+                <option value="Trachelium|18.00|BN">Trachelium ($18.00 / Bunch)</option>
+                <option value="Tulip|15.00|BN">Tulip ($15.00 / Bunch)</option>
+                <option value="Veronica|18.00|BN">Veronica ($18.00 / Bunch)</option>
+                <option value="Wax Flower|20.00|BN">Wax Flower ($20.00 / Bunch)</option>
+                <option value="Zinnia|3.00|ST">Zinnia ($3.00 / Stem)</option>
+              </optgroup>
+
+              <optgroup label="Greens, Plants, & Moss">
+                <option value="Aspidistra|8.00|BN">Aspidistra ($8.00 / Bunch)</option>
+                <option value="Bear Grass|7.00|BN">Bear Grass ($7.00 / Bunch)</option>
+                <option value="Cedar|20.00|BN">Cedar ($20.00 / Bunch)</option>
+                <option value="Cocculus|6.00|BN">Cocculus ($6.00 / Bunch)</option>
+                <option value="Curly Willow|20.00|BN">Curly Willow ($20.00 / Bunch)</option>
+                <option value="Euc - Seeded|18.00|BN">Euc - Seeded ($18.00 / Bunch)</option>
+                <option value="Euc - Silver Dollar|18.00|BN">Euc - Silver Dollar ($18.00 / Bunch)</option>
+                <option value="Euc - Spiral|18.00|BN">Euc - Spiral ($18.00 / Bunch)</option>
+                <option value="Euc - Willow|18.00|BN">Euc - Willow ($18.00 / Bunch)</option>
+                <option value="Huck|14.00|BN">Huck ($14.00 / Bunch)</option>
+                <option value="Italian Ruscus|20.00|BN">Italian Ruscus ($20.00 / Bunch)</option>
+                <option value="Leather Leaf|8.00|BN">Leather Leaf ($8.00 / Bunch)</option>
+                <option value="Lily Grass|5.00|BN">Lily Grass ($5.00 / Bunch)</option>
+                <option value="Moss - Sheet|40.00|CS">Moss - Sheet ($40.00 / Case)</option>
+                <option value="Moss - Spanish|30.00|CS">Moss - Spanish ($30.00 / Case)</option>
+                <option value="Myrtle|18.00|BN">Myrtle ($18.00 / Bunch)</option>
+                <option value="Pitt|15.00|BN">Pitt ($15.00 / Bunch)</option>
+                <option value="Plumosa|14.00|BN">Plumosa ($14.00 / Bunch)</option>
+                <option value="Podocarpus|14.00|BN">Podocarpus ($14.00 / Bunch)</option>
+                <option value="Robellini|12.00|BN">Robellini ($12.00 / Bunch)</option>
+                <option value="Salal|18.00|BN">Salal ($18.00 / Bunch)</option>
+                <option value="Salal Tips|14.00|BN">Salal Tips ($14.00 / Bunch)</option>
+                <option value="Springeri|14.00|BN">Springeri ($14.00 / Bunch)</option>
+                <option value="Teepe|12.00|BN">Teepe ($12.00 / Bunch)</option>
+              </optgroup>
+            </select>
+          </div>
+          <div class="flex items-end">
+            <button type="button" onclick="addSelectedMarketFlower('marketFlowerPresetSelect', 'marketTableBody', 'teal')" class="px-4 py-2 bg-teal-600 hover:bg-teal-700 text-white font-medium text-sm rounded-md transition shadow-sm flex items-center gap-1.5">
+              <i data-lucide="plus-circle" class="w-4 h-4"></i> Add Market Flower
+            </button>
+          </div>
+        </div>
+
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-sm">
+            <thead class="bg-slate-100 text-slate-600 font-semibold uppercase text-xs">
+              <tr>
+                <th class="p-3 rounded-l-md">Flower / Green Description</th>
+                <th class="p-3 w-28 text-center">QTY</th>
+                <th class="p-3 w-32 text-right">$ Each</th>
+                <th class="p-3 w-32 text-right">$ Total</th>
+                <th class="p-3 w-12 text-center rounded-r-md"></th>
+              </tr>
+            </thead>
+            <tbody id="marketTableBody" class="divide-y divide-slate-100"></tbody>
+          </table>
+        </div>
+        <button type="button" onclick="addStandardRow('marketTableBody', 'teal')" class="mt-2 text-xs font-semibold text-teal-700 hover:text-teal-900 flex items-center gap-1">
+          <i data-lucide="plus" class="w-4 h-4"></i> Add Custom Market Item
+        </button>
+      </div>
+    </section>
+
+    <!-- SECTION 8: SERVICE & DELIVERY / FINANCIAL SUMMARY -->
     <section class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
       <div class="bg-slate-800 border-b border-slate-700 px-6 py-4 flex items-center justify-between text-white">
         <h2 class="text-lg font-bold flex items-center gap-2">
@@ -625,6 +766,7 @@
       document.getElementById('boutsTableBody').innerHTML = '';
       document.getElementById('ceremonyTableBody').innerHTML = '';
       document.getElementById('receptionTableBody').innerHTML = '';
+      document.getElementById('marketTableBody').innerHTML = '';
 
       addStandardRow('brideTableBody', 'rose', "Bride's Bouquet", '0.00', '0');
       addStandardRow('partyTableBody', 'purple', "Bridesmaid Bouquets", '0.00', '0');
@@ -699,6 +841,7 @@
       document.getElementById('boutsTableBody').innerHTML = '';
       document.getElementById('ceremonyTableBody').innerHTML = '';
       document.getElementById('receptionTableBody').innerHTML = '';
+      document.getElementById('marketTableBody').innerHTML = '';
 
       if (p.items && p.items.length > 0) {
         p.items.forEach(item => {
@@ -708,6 +851,7 @@
           else if (item.section === 'bouts') { targetBody = 'boutsTableBody'; theme = 'amber'; }
           else if (item.section === 'ceremony') { targetBody = 'ceremonyTableBody'; theme = 'emerald'; }
           else if (item.section === 'reception') { targetBody = 'receptionTableBody'; theme = 'blue'; }
+          else if (item.section === 'market') { targetBody = 'marketTableBody'; theme = 'teal'; }
 
           addStandardRow(targetBody, theme, item.name, item.price, item.qty, item.notes);
         });
@@ -804,7 +948,8 @@
         'partyTableBody',
         'boutsTableBody',
         'ceremonyTableBody',
-        'receptionTableBody'
+        'receptionTableBody',
+        'marketTableBody'
       ];
 
       sectionsMap.forEach((tbodyId) => {
@@ -863,7 +1008,8 @@
         { tbodyId: 'partyTableBody', section: 'party' },
         { tbodyId: 'boutsTableBody', section: 'bouts' },
         { tbodyId: 'ceremonyTableBody', section: 'ceremony' },
-        { tbodyId: 'receptionTableBody', section: 'reception' }
+        { tbodyId: 'receptionTableBody', section: 'reception' },
+        { tbodyId: 'marketTableBody', section: 'market' }
       ];
 
       sectionsMap.forEach(({ tbodyId, section }) => {
@@ -1049,6 +1195,22 @@
       select.selectedIndex = 0;
     };
 
+    window.addSelectedMarketFlower = function(selectId, tbodyId, themeColor) {
+      const select = document.getElementById(selectId);
+      if (!select.value) return;
+
+      const [name, price, unit] = select.value.split('|');
+      
+      let unitLabel = "Stem";
+      if (unit === "BN") unitLabel = "Bunch";
+      else if (unit === "CS") unitLabel = "Case";
+      else if (unit === "Bloom") unitLabel = "Bloom";
+
+      const formattedName = `${name} (${unitLabel})`;
+      addStandardRow(tbodyId, themeColor, formattedName, price, '1', `Sold per ${unitLabel.toLowerCase()}`);
+      select.selectedIndex = 0;
+    };
+
     window.openProposalPreview = function() {
       calculateTotals();
 
@@ -1124,7 +1286,8 @@
               ${rHead ? `<strong>Head/Sweetheart Table:</strong> ${rHead}` : ''}
             </div>
           ` : ''
-        }
+        },
+        { id: 'marketTableBody', title: "Market Flowers & Greens", notesHtml: '' }
       ];
 
       let itemizedHtml = '';
