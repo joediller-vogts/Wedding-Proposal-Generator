@@ -100,6 +100,15 @@
 
       <div class="p-6 grid grid-cols-1 md:grid-cols-3 gap-4">
         <div>
+          <label class="block text-xs font-bold text-slate-500 uppercase mb-1">Store Location</label>
+          <select id="storeLocationSelect" class="w-full bg-slate-50 border border-slate-300 rounded-md px-3 py-1.5 text-sm focus:ring-2 focus:ring-rose-500 focus:outline-none">
+            <option value="Flint|flint@vogtsflowers.com">Flint (flint@vogtsflowers.com)</option>
+            <option value="Grand Blanc|grandblanc@vogtsflowers.com">Grand Blanc (grandblanc@vogtsflowers.com)</option>
+            <option value="Davison|davison@vogtsflowers.com">Davison (davison@vogtsflowers.com)</option>
+            <option value="Flushing|flushing@vogtsflowers.com">Flushing (flushing@vogtsflowers.com)</option>
+          </select>
+        </div>
+        <div>
           <label class="block text-xs font-bold text-slate-500 uppercase mb-1">Bride Name</label>
           <input type="text" id="brideName" class="w-full bg-slate-50 border border-slate-300 rounded-md px-3 py-1.5 text-sm focus:ring-2 focus:ring-rose-500 focus:outline-none">
         </div>
@@ -430,7 +439,7 @@
       </div>
     </section>
 
-    <!-- SECTION 7: MARKET FLOWERS (NEW) -->
+    <!-- SECTION 7: MARKET FLOWERS -->
     <section class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
       <div class="bg-teal-50/70 border-b border-teal-100 px-6 py-4 flex items-center justify-between">
         <h2 class="text-lg font-bold text-teal-900 flex items-center gap-2">
@@ -758,6 +767,7 @@
       document.getElementById('accountNumber').value = '';
       document.getElementById('deliveryFee').value = '0.00';
       document.getElementById('paymentsOnAccount').value = '0.00';
+      document.getElementById('storeLocationSelect').selectedIndex = 0;
     }
 
     function resetDefaultBaseItems() {
@@ -809,6 +819,10 @@
         emailSent: p.emailSent || false,
         emailSentAt: p.emailSentAt || null
       };
+
+      if (p.storeLocationName && p.storeEmail) {
+        document.getElementById('storeLocationSelect').value = `${p.storeLocationName}|${p.storeEmail}`;
+      }
 
       document.getElementById('brideName').value = p.brideName || '';
       document.getElementById('groomName').value = p.groomName || '';
@@ -923,7 +937,7 @@
         tr.innerHTML = `
           <td class="p-4 font-semibold text-slate-900">
             ${p.brideName || 'Unnamed Bride'} ${p.groomName ? '& ' + p.groomName : ''}
-            <div class="text-xs text-slate-400 font-normal">${p.ceremonyVenue || 'No Venue Listed'} ${p.accountNumber ? '• Acc #' + p.accountNumber : ''}</div>
+            <div class="text-xs text-slate-400 font-normal">${p.storeLocationName ? p.storeLocationName + ' Store • ' : ''}${p.ceremonyVenue || 'No Venue Listed'} ${p.accountNumber ? '• Acc #' + p.accountNumber : ''}</div>
           </td>
           <td class="p-4 text-slate-600 text-xs">${p.eventDate || 'N/A'}</td>
           <td class="p-4">${emailBadge}</td>
@@ -1002,6 +1016,9 @@
     function getProposalPayload(action) {
       calculateTotals();
 
+      const storeSelectVal = document.getElementById('storeLocationSelect')?.value || 'Flint|flint@vogtsflowers.com';
+      const [storeName, storeEmail] = storeSelectVal.split('|');
+
       const savedItems = [];
       const sectionsMap = [
         { tbodyId: 'brideTableBody', section: 'bride' },
@@ -1034,6 +1051,8 @@
 
       return {
         action: action,
+        storeLocationName: storeName,
+        storeEmail: storeEmail,
         recipientEmail: document.getElementById('brideEmail').value,
         brideEmail: document.getElementById('brideEmail').value,
         brideName: document.getElementById('brideName').value || 'Unnamed Bride',
@@ -1142,7 +1161,7 @@
           body: JSON.stringify(payload)
         });
 
-        alert(`Proposal request sent! Google is generating the PDF, saving it to Drive, and emailing ${brideEmail}.`);
+        alert(`Proposal request sent! Google is generating the PDF, saving it to Drive, and emailing ${brideEmail} from ${payload.storeEmail}.`);
         updateEmailBadgeHeader();
         closeProposalPreview();
 
@@ -1223,6 +1242,9 @@
       const receptionVenue = document.getElementById('receptionVenue').value || 'N/A';
       const themeNotes = document.getElementById('themeNotes').value || '';
       const accountNumber = document.getElementById('accountNumber').value || 'N/A';
+
+      const storeSelectVal = document.getElementById('storeLocationSelect')?.value || 'Flint|flint@vogtsflowers.com';
+      const [storeName, storeEmail] = storeSelectVal.split('|');
 
       const itemsSubtotal = document.getElementById('itemsSubtotalDisplay').textContent;
       const serviceFee = document.getElementById('serviceFeeDisplay').textContent;
@@ -1353,12 +1375,12 @@
             <div style="display: flex; align-items: center; gap: 10px;">
               <img src="logo.png" alt="Vogt's Flowers Logo" style="height: 42px; width: auto; object-fit: contain;" onerror="this.style.display='none'">
               <div>
-                <h1 style="font-size: 18px; font-weight: 800; color: #881337; margin: 0; line-height: 1.1;">Vogt's Flowers & Gifts</h1>
+                <h1 style="font-size: 18px; font-weight: 800; color: #881337; margin: 0; line-height: 1.1;">Vogt's Flowers & Gifts (${storeName})</h1>
                 <p style="font-size: 9.5px; color: #64748b; margin: 2px 0 0 0;">Official Wedding Floral Proposal ${accountNumber !== 'N/A' ? '• Account #' + accountNumber : ''}</p>
               </div>
             </div>
             <div style="text-align: right; font-size: 9.5px; color: #64748b;">
-              <p style="margin: 0; font-weight: bold; color: #881337;">events@vogtsflowers.com</p>
+              <p style="margin: 0; font-weight: bold; color: #881337;">${storeEmail}</p>
               <p style="margin: 1px 0 0 0;">www.vogtsflowers.com</p>
             </div>
           </div>
