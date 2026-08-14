@@ -102,7 +102,7 @@
         <div>
           <label class="block text-xs font-bold text-slate-500 uppercase mb-1">Store Location</label>
           <select id="storeLocationSelect" class="w-full bg-slate-50 border border-slate-300 rounded-md px-3 py-1.5 text-sm focus:ring-2 focus:ring-rose-500 focus:outline-none">
-            <option value="Flint|flint@vogtsflowers.com">Flint (flint@vogtsflowers.com)</option>
+            <option value="Flint|events@vogtsflowers.com">Flint (events@vogtsflowers.com)</option>
             <option value="Grand Blanc|grandblanc@vogtsflowers.com">Grand Blanc (grandblanc@vogtsflowers.com)</option>
             <option value="Davison|davison@vogtsflowers.com">Davison (davison@vogtsflowers.com)</option>
             <option value="Flushing|flushing@vogtsflowers.com">Flushing (flushing@vogtsflowers.com)</option>
@@ -1016,7 +1016,7 @@
     function getProposalPayload(action) {
       calculateTotals();
 
-      const storeSelectVal = document.getElementById('storeLocationSelect')?.value || 'Flint|flint@vogtsflowers.com';
+      const storeSelectVal = document.getElementById('storeLocationSelect')?.value || 'Flint|events@vogtsflowers.com';
       const [storeName, storeEmail] = storeSelectVal.split('|');
 
       const savedItems = [];
@@ -1243,7 +1243,7 @@
       const themeNotes = document.getElementById('themeNotes').value || '';
       const accountNumber = document.getElementById('accountNumber').value || 'N/A';
 
-      const storeSelectVal = document.getElementById('storeLocationSelect')?.value || 'Flint|flint@vogtsflowers.com';
+      const storeSelectVal = document.getElementById('storeLocationSelect')?.value || 'Flint|events@vogtsflowers.com';
       const [storeName, storeEmail] = storeSelectVal.split('|');
 
       const itemsSubtotal = document.getElementById('itemsSubtotalDisplay').textContent;
